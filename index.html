@@ -15,7 +15,45 @@
 </head>
 <body>
   <h1>DON'T BUY $dontbuy</h1>
-  <p>The first key is already hidden.</p>
+  <div style="margin-top: 4em; text-align: center; font-family: monospace;">
+  <p style="font-size: 1.3em; margin-bottom: 1em;">The first key is already hidden.</p>
+  <p>Those who find it will be acknowledged.</p>
+  <input type="text" id="key-input" placeholder="Enter decoded key here" 
+         style="padding: 0.8em; width: 320px; font-size: 1.1em; font-family: monospace; border: 1px solid #000;">
+  <button onclick="validateKey()" 
+          style="padding: 0.8em 1.6em; margin-left: 0.8em; background: #000; color: #fff; border: none; cursor: pointer; font-size: 1.1em;">
+    Validate
+  </button>
+  
+  <p id="result" style="margin-top: 1.5em; font-weight: bold; min-height: 1.5em;"></p>
+</div>
+<script>
+  function validateKey() {
+    const input = document.getElementById('key-input').value.trim();
+    const result = document.getElementById('result');
+    
+    // CHANGE THESE TWO VALUES when you want a new key
+    const CORRECT_ENCODED = "VVNFUl9LRVlfMToNCjUxMzIzOTA4MjUzNjMwNDE2";          // what they find in source
+    const CORRECT_DECODED = "51323908253630416";                 // what they should enter
+
+    if (input === CORRECT_ENCODED) {
+      result.style.color = "orange";
+      result.textContent = "Too easy — decode it first.";
+    } else if (input === CORRECT_DECODED) {
+      result.style.color = "green";
+      result.innerHTML = 'Key accepted.<br><br>' +
+                         'Send this key + your XRPL wallet address to:<br>' +
+                         '<strong>dontbuythis@proton.me</strong><br>' +
+                         'Subject: Stage 1<br>' +
+                         'Next clue within 24h if valid.';
+      // Optional: disable input/button after success
+      document.getElementById('key-input').disabled = true;
+    } else {
+      result.style.color = "red";
+      result.textContent = "Incorrect.";
+    }
+  }
+</script>
   <p>Those who find it will be acknowledged.</p>
   <p>🗝 Write only if you must:</p>
   <center></center><p><a href="mailto:dontbuythis@proton.me">dontbuythis@proton.me</a></p>

@@ -32,9 +32,9 @@
     const input = document.getElementById('key-input').value.trim();
     const result = document.getElementById('result');
     
-    // CHANGE THESE TWO VALUES when you want a new key
-    const CORRECT_ENCODED = "VVNFUl9LRVlfMToNCjUxMzIzOTA4MjUzNjMwNDE2";          // what they find in source
-    const CORRECT_DECODED = "51323908253630416";                 // what they should enter
+    
+    const CORRECT_ENCODED = "VVNFUl9LRVlfMToNCjUxMzIzOTA4MjUzNjMwNDE2";          
+    const CORRECT_DECODED = "51323908253630416";                
 
     if (input === CORRECT_ENCODED) {
       result.style.color = "orange";
@@ -46,7 +46,7 @@
                          '<strong>dontbuythis@proton.me</strong><br>' +
                          'Subject: Stage 1<br>' +
                          'Next clue within 24h if valid.';
-      // Optional: disable input/button after success
+     
       document.getElementById('key-input').disabled = true;
     } else {
       result.style.color = "red";

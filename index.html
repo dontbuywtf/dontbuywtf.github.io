@@ -17,8 +17,8 @@
   <h1>DON'T BUY $dontbuy</h1>
   <div style="margin-top: 4em; text-align: center; font-family: monospace;">
   <p style="font-size: 1.3em; margin-bottom: 1em;">The first key is already hidden.</p>
-  <p>Those who find it will be acknowledged.</p>
-  <input type="text" id="key-input" placeholder="Enter decoded key here" 
+  <p style="font-size: 1.3em; margin-bottom: 1em;">Those who find it will be acknowledged.</p>
+  <input type="text" id="key-input" placeholder="Enter 🗝 here" 
          style="padding: 0.8em; width: 320px; font-size: 1.1em; font-family: monospace; border: 1px solid #000;">
   <button onclick="validateKey()" 
           style="padding: 0.8em 1.6em; margin-left: 0.8em; background: #000; color: #fff; border: none; cursor: pointer; font-size: 1.1em;">
@@ -38,7 +38,7 @@
 
     if (input === CORRECT_ENCODED) {
       result.style.color = "orange";
-      result.textContent = "Too easy — decode it first.";
+      result.textContent = "This would be too easy — try harder.";
     } else if (input === CORRECT_DECODED) {
       result.style.color = "green";
       result.innerHTML = 'Key accepted.<br><br>' +
@@ -54,8 +54,7 @@
     }
   }
 </script>
-  <p>Those who find it will be acknowledged.</p>
-  <p>🗝 Write only if you must:</p>
+  <p>Write only if you must:</p>
   <center></center><p><a href="mailto:dontbuythis@proton.me">dontbuythis@proton.me</a></p>
   <p style="font-size: 1.2em; margin-top: 4em;">dontbuy.wtf</p></center>
 </body>

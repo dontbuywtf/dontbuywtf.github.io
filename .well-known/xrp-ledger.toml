@@ -1,0 +1,22 @@
+[[ISSUERS]]
+address = "rPdoK8S6skUohpzTpabMJtrQH6ii15tWtx"
+name = "Don't Buy"
+
+[[TOKENS]]
+issuer = "rPdoK8S6skUohpzTpabMJtrQH6ii15tWtx"
+currency = "DONTBUY"
+name = "Dont Buy"
+desc = "This coin shouldn't exist"
+icon = "https://dontbuy.wtf/dontbuy.png"
+
+[[TOKENS.URLS]]
+url = "https://dontbuy.wtf"
+type = "website"
+
+[[TOKENS.URLS]]
+url = "https://x.com/dontbuywtf"
+type = "social"
+
+[[TOKENS.URLS]]
+url = "https://t.co/yJ9Di6F9GG"
+type = "social"

@@ -3,7 +3,7 @@ address = "rPdoK8S6skUohpzTpabMJtrQH6ii15tWtx"
 name = "DONTBUY"
 
 [[TOKENS]]
-issuer = "rPdoK8S6skUohpzTpabMJtrQH6ii15tWtx"
+issuer = "raP7o5zVFyZNbNybmriT3YSAkQ4xqNLHMN"
 currency = "DONTBUY"
 name = "DONTBUY"
 desc = "This coin shouldn't exist"

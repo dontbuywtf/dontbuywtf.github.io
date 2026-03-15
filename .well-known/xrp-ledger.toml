@@ -4,7 +4,7 @@ name = "DONTBUY"
 
 [[TOKENS]]
 issuer = "raP7o5zVFyZNbNybmriT3YSAkQ4xqNLHMN"
-currency = "DONTBUY"
+currency = "$DONTBUY"
 name = "DONTBUY"
 desc = "This coin shouldn't exist"
 icon = "https://dontbuy.wtf/dontbuy.png"

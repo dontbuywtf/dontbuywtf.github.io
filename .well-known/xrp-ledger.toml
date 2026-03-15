@@ -1,11 +1,11 @@
 [[ISSUERS]]
 address = "rPdoK8S6skUohpzTpabMJtrQH6ii15tWtx"
-name = "Don't Buy"
+name = "DONTBUY"
 
 [[TOKENS]]
 issuer = "rPdoK8S6skUohpzTpabMJtrQH6ii15tWtx"
 currency = "DONTBUY"
-name = "Dont Buy"
+name = "DONTBUY"
 desc = "This coin shouldn't exist"
 icon = "https://dontbuy.wtf/dontbuy.png"
 

@@ -25,6 +25,10 @@ const fileSystem = {
         dirs: ['logs', 'vault'], 
         files: { 'manifesto.txt': "THE VOID IS THE ONLY PERMANENT RECORD." } 
     },
+    'files': {
+        dirs: [],
+        files: { 'void_signal.enc': "ENCRYPTED FREQUENCY. USE 'DECRYPT [KEY]'." }
+    },
     'logs': { 
         dirs: [], 
         files: { 'system.log': "2026-03-16: SNAPSHOT SUCCESSFUL. NODE_333 ACTIVE." } 
@@ -37,6 +41,7 @@ const fileSystem = {
         dirs: [],
         files: { 'void_signal.enc': "ENCRYPTED FREQUENCY. USE 'DECRYPT [KEY]'." }
     }
+    
 };
 
 async function printLines(lines) {
@@ -56,6 +61,39 @@ async function printLines(lines) {
 }
 
 input.addEventListener('keydown', async (e) => {
+    // --- TAB AUTOCOMPLETE LOGIC ---
+    if (e.key === 'Tab') {
+        e.preventDefault(); // Stop the focus from leaving the input
+        
+        const val = input.value.trim();
+        const parts = val.split(' ');
+        const currentInput = parts[parts.length - 1].toLowerCase();
+        
+        if (!currentInput) return;
+
+        const fs = fileSystem[currentDir];
+        // Combine dirs and files into one searchable list
+        const pool = fs.dirs.concat(Object.keys(fs.files));
+        
+        // Find matches
+        const matches = pool.filter(item => item.toLowerCase().startsWith(currentInput));
+
+        if (matches.length === 1) {
+            // One match found: Auto-fill it
+            parts[parts.length - 1] = matches[0];
+            input.value = parts.join(' ');
+        } else if (matches.length > 1) {
+            // Multiple matches: Print them so the user knows options
+            const historyLine = document.createElement('div');
+            historyLine.className = 'cmd-line';
+            historyLine.textContent = `> ${matches.join('   ')}`;
+            output.appendChild(historyLine);
+            output.scrollTop = output.scrollHeight;
+        }
+        return;
+    }
+
+    // --- ENTER KEY LOGIC (Existing) ---
     if (e.key === 'Enter' && !isPrinting) {
         const val = input.value.trim();
         if (!val) return;

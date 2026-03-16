@@ -44,7 +44,15 @@
       document.getElementById("minutes").textContent = "00";
       document.getElementById("seconds").textContent = "00";
       // Optional: show a message
-      document.getElementById("countdown").innerHTML = "The signal hid the first key.";
+      document.getElementById("countdown").innerHTML = `
+    <p style="margin-top: 3rem;">
+    <a href="https://firstledger.net/token-v2/raP7o5zVFyZNbNybmriT3YSAkQ4xqNLHMN/24444F4E54425559000000000000000000000000" 
+       target="_blank"
+       style="display: inline-block; min-width:300px; padding: 1rem 2rem; background: #000000; color: #ffffff; font-family: monospace; font-size: 1.4rem; text-decoration: none; border: 2px solid #000000; transition: all 0.2s;">
+      DON'T MINT
+    </a>
+  </p>
+  `;
       return;
     }
 
@@ -65,11 +73,11 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 </script>
-  <p style="margin-top: 3rem;">
+  <p style="margin-top: 1rem;">
     <a href="https://firstledger.net/token-v2/raP7o5zVFyZNbNybmriT3YSAkQ4xqNLHMN/24444F4E54425559000000000000000000000000" 
        target="_blank"
-       style="display: inline-block; padding: 1rem 2rem; background: #000000; color: #ffffff; font-family: monospace; font-size: 1.4rem; text-decoration: none; border: 2px solid #000000; transition: all 0.2s;">
-      DON'T BUY ON FIRST LEDGER
+       style="display: inline-block;min-width: 300px; padding: 1rem 2rem; background: #000000; color: #ffffff; font-family: monospace; font-size: 1.4rem; text-decoration: none; border: 2px solid #000000; transition: all 0.2s;">
+      DON'T BUY
     </a>
   </p>
   <p style="font-size: 1.3rem; margin-bottom: 1rem; margin-top: 2rem;">Write only if you must:</p>

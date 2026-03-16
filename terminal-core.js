@@ -25,7 +25,7 @@ let isAuthenticated = false; // System state: locked
 
 const fileSystem = {
     'root': { 
-        dirs: ['files', 'logs', 'temp' 'vault', 'comms'],
+        dirs: ['files', 'logs', 'temp', 'vault', 'comms'], // Fixed: added comma after 'temp'
         files: { 
             'manifesto.txt': "THE VOID IS THE ONLY PERMANENT RECORD.",
             'readme.txt': "TYPE 'HELP' TO BEGIN SYSTEM DIAGNOSTICS.",
@@ -33,13 +33,18 @@ const fileSystem = {
         } 
     },
     'files': { 
-        dirs: ['Common files', 'Wallets', 'Snapshots'], 
+        dirs: ['common_files', 'wallets', 'snapshots'], // Fixed: removed spaces
         files: { 
             'session_01.log': "2026-03-16: SNAPSHOT SUCCESSFUL.",
             'session_02.log': "2026-03-17: 333 NEW ENTRIES DETECTED.",
             'error.log': "WARNING: NON-COMPLIANCE DETECTED IN SECTOR 7."
         } 
     },
+    // Added missing definitions for sub-folders in 'files'
+    'common_files': { dirs: [], files: { 'note.txt': "Public assets only." } },
+    'wallets': { dirs: [], files: { 'ledger.txt': "Empty." } },
+    'snapshots': { dirs: [], files: { 'backup.001': "Corruption detected." } },
+    
     'logs': { 
         dirs: [], 
         files: { 
@@ -48,6 +53,7 @@ const fileSystem = {
             'error.log': "WARNING: NON-COMPLIANCE DETECTED IN SECTOR 7."
         } 
     },
+    'temp': { dirs: [], files: { 'cache.tmp': "System garbage." } }, // Added missing 'temp' folder
     'vault': { 
         dirs: ['restricted'], 
         files: { 

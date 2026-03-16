@@ -3,90 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>$DONTBUY_TERMINAL_UNIVERSAL</title>
+    <title>$DONTBUY_SYSTEM_TERMINAL</title>
     <style>
-        :root { --green: #afdd9f; --bg: #000000; --crt-glow: rgba(175, 221, 159, 0.1); }
-        
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
+        :root { --green: #afdd9f; --bg: #050505; --dim-green: rgba(175, 221, 159, 0.6); }
+        * { box-sizing: border-box; }
         body { 
-            background: #0a0a0a; /* Darker outer background for desktop contrast */
-            color: var(--green); 
+            background: #000; color: var(--green); 
             font-family: 'Courier New', Courier, monospace; 
-            margin: 0; padding: 0; height: 100vh;
-            display: flex; justify-content: center; /* Centers the terminal on desktop */
+            margin: 0; height: 100vh; display: flex; justify-content: center;
             overflow: hidden;
         }
-
-        /* The Main Container */
         #container {
-            width: 100%;
-            max-width: 800px; /* Limits width on desktop for better readability */
-            height: 100%;
-            background: var(--bg);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            width: 100%; max-width: 900px; height: 100%;
+            background: var(--bg); display: flex; flex-direction: column;
+            position: relative; box-shadow: 0 0 40px rgba(0,0,0,1);
         }
-
-        /* CRT Scanline Overlay */
-        #container::after {
-            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            z-index: 10; background-size: 100% 3px, 3px 100%; pointer-events: none;
-        }
-
         #terminal { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 20px;
-            font-size: 16px; /* Slightly larger for all devices */
-            line-height: 1.5;
-            scrollbar-width: thin;
-            scrollbar-color: #222 var(--bg);
+            flex: 1; overflow-y: auto; padding: 25px;
+            font-size: 16px; line-height: 1.6;
+            scrollbar-width: none;
         }
-
-        /* Scrollbar styling for Chrome/Safari */
-        #terminal::-webkit-scrollbar { width: 6px; }
-        #terminal::-webkit-scrollbar-track { background: var(--bg); }
-        #terminal::-webkit-scrollbar-thumb { background: #222; }
-
+        #terminal::-webkit-scrollbar { display: none; }
         #input-area { 
-            background: #0a0a0a; 
-            padding: 15px 20px;
-            display: flex; 
-            align-items: center;
-            border-top: 1px solid #1a1a1a;
-            padding-bottom: calc(15px + env(safe-area-inset-bottom)); 
+            background: #080808; padding: 15px 25px;
+            display: flex; border-top: 1px solid #151515;
+            padding-bottom: calc(15px + env(safe-area-inset-bottom));
         }
-
-        #prompt { font-weight: bold; margin-right: 10px; color: var(--green); white-space: nowrap; }
-        
+        #prompt { font-weight: bold; margin-right: 12px; color: var(--green); }
         input { 
             background: transparent; border: none; color: var(--green); 
-            outline: none; font-family: inherit; font-size: 16px; 
-            flex: 1; caret-color: var(--green);
-            width: 100%;
+            outline: none; font-family: inherit; font-size: 16px; flex: 1;
         }
-
-        .error { color: #ff5f5f; }
-        .success { color: #55ff55; text-shadow: 0 0 10px var(--green); }
-        .dir { color: #5fbfff; }
-        
-        .flicker { animation: pulse 6s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.93; } 100% { opacity: 1; } }
+        .cmd-line { color: var(--dim-green); margin-bottom: 5px; }
+        .success { color: #55ff55; text-shadow: 0 0 8px #55ff55; }
+        .error { color: #ff5555; }
+        .help-grid { display: grid; grid-template-columns: 120px 1fr; margin: 10px 0; }
     </style>
 </head>
-<body class="flicker">
+<body>
     <div id="container">
-        <div id="terminal">
-            <div>*** $DONTBUY SYSTEM INTERFACE [UNIVERSE_v2.0] ***</div>
-            <div>STATION: REMOTE_ACCESS_NODE_01</div>
-            <div>STATUS: ONLINE. TYPE 'HELP' TO PROCEED.</div>
-            <br>
-        </div>
+        <div id="terminal" role="log" aria-live="polite"></div>
         <div id="input-area">
             <span id="prompt">root></span>
             <input type="text" id="cmd" autofocus autocomplete="off" spellcheck="false" autocapitalize="none">
@@ -99,70 +55,135 @@
         const promptSpan = document.getElementById('prompt');
 
         let currentDir = 'root';
+        let isPrinting = false;
+
         const fileSystem = {
-            'root': { dirs: ['logs', 'vault'], files: { 'manifesto.txt': "THE VOID IS THE ONLY TRUTH." } },
-            'logs': { dirs: [], files: { 'entry_01.log': "2026-03-16: SNAPSHOT TAKEN." } },
-            'vault': { dirs: [], files: { 'cipher.enc': "ENCRYPTED DATA DETECTED." } }
+            'root': { dirs: ['logs', 'vault'], files: { 'manifesto.txt': "THE VOID IS THE ONLY PERMANENT RECORD." } },
+            'logs': { dirs: [], files: { 'session_01.log': "2026-03-16: ACCESS GRANTED TO NODE_333." } },
+            'vault': { dirs: [], files: { 'signal.enc': "ENCRYPTED FREQUENCY. PASSWORD REQUIRED." } }
         };
 
-        input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
+        // --- THE "REAL TERMINAL" PRINTING LOGIC ---
+        async function printLines(lines) {
+            isPrinting = true;
+            input.disabled = true; // Block input while printing
+            
+            for (let line of lines) {
+                const div = document.createElement('div');
+                if (line.cls) div.className = line.cls;
+                output.appendChild(div);
+                
+                // Typewriter effect for each line
+                for (let char of line.text) {
+                    div.textContent += char;
+                    await new Promise(r => setTimeout(r, 15)); // Speed of typing
+                }
+                output.scrollTop = output.scrollHeight;
+                await new Promise(r => setTimeout(r, 100)); // Gap between lines
+            }
+            
+            isPrinting = false;
+            input.disabled = false;
+            input.focus();
+        }
+
+        const helpData = [
+            { cmd: "LS", desc: "List all items in the current directory." },
+            { cmd: "CD [DIR]", desc: "Change directory (Use 'CD ..' to go back)." },
+            { cmd: "CAT [FILE]", desc: "Read the contents of a specific file." },
+            { cmd: "DECRYPT", desc: "Attempt to unlock encrypted files." },
+            { cmd: "CLEAR", desc: "Purge the current terminal session." },
+            { cmd: "EXIT", desc: "Terminate remote connection." }
+        ];
+
+        input.addEventListener('keydown', async (e) => {
+            if (e.key === 'Enter' && !isPrinting) {
                 const val = input.value.trim();
                 if (!val) return;
                 
                 const [cmd, ...args] = val.split(' ');
                 const arg = args.join(' ');
 
-                printLine(`${promptSpan.textContent} ${val}`);
-                handleCommand(cmd.toLowerCase(), arg);
+                // Add the command to history immediately
+                const historyLine = document.createElement('div');
+                historyLine.className = 'cmd-line';
+                historyLine.textContent = `${promptSpan.textContent} ${val}`;
+                output.appendChild(historyLine);
                 
                 input.value = '';
-                output.scrollTop = output.scrollHeight;
+                await handleCommand(cmd.toLowerCase(), arg);
             }
         });
 
-        function printLine(text, cls = "") {
-            const div = document.createElement('div');
-            div.textContent = text;
-            if (cls) div.className = cls;
-            output.appendChild(div);
-        }
-
-        function handleCommand(cmd, arg) {
+        async function handleCommand(cmd, arg) {
             const fs = fileSystem[currentDir];
 
             switch(cmd) {
                 case 'help':
-                    printLine("COMMANDS: LS, CD [folder], CAT [file], DECRYPT [pass], CLEAR");
+                    let helpLines = [{text: "AVAILABLE COMMANDS:", cls: "success"}];
+                    helpData.forEach(item => {
+                        helpLines.push({text: `  ${item.cmd.padEnd(10)} - ${item.desc}`});
+                    });
+                    await printLines(helpLines);
                     break;
+
                 case 'ls':
-                    let items = fs.dirs.map(d => `[${d}]`).concat(Object.keys(fs.files));
-                    printLine(items.length ? items.join('  ') : "Empty directory.");
+                    let items = fs.dirs.map(d => `[${d.toUpperCase()}]`).concat(Object.keys(fs.files));
+                    await printLines([{text: items.length ? items.join('   ') : "Directory is empty."}]);
                     break;
+
                 case 'cd':
-                    if (arg === '..') currentDir = 'root';
-                    else if (fs.dirs.includes(arg)) currentDir = arg;
-                    else printLine("ERROR: DIRECTORY NOT FOUND", "error");
-                    promptSpan.textContent = `${currentDir}>`;
+                    if (arg === '..') {
+                        currentDir = 'root';
+                        promptSpan.textContent = `root>`;
+                        await printLines([{text: "Directory changed to root."}]);
+                    } else if (fs.dirs.includes(arg)) {
+                        currentDir = arg;
+                        promptSpan.textContent = `${currentDir}>`;
+                        await printLines([{text: `Directory changed to ${arg}.`}]);
+                    } else {
+                        await printLines([{text: "ERROR: DIRECTORY NOT FOUND", cls: "error"}]);
+                    }
                     break;
+
                 case 'cat':
-                    if (fs.files[arg]) printLine(fs.files[arg]);
-                    else printLine("ERROR: FILE NOT FOUND", "error");
+                    if (fs.files[arg]) await printLines([{text: fs.files[arg]}]);
+                    else await printLines([{text: "ERROR: FILE NOT FOUND", cls: "error"}]);
                     break;
+
                 case 'decrypt':
-                    if (arg === '333') printLine("DECODED: VOID-777-ALPHA (SUBMIT TO PROTON)", "success");
-                    else printLine("DECRYPTION FAILED: INCORRECT KEY", "error");
+                    if (arg === '333') {
+                        await printLines([
+                            {text: "ACCESS GRANTED.", cls: "success"},
+                            {text: "SIGNAL FOUND: VOID-777-ALPHA"},
+                            {text: "SUBMIT TO: dontbuythis@proton.me"}
+                        ]);
+                    } else {
+                        await printLines([{text: "DECRYPTION FAILED. INVALID KEY.", cls: "error"}]);
+                    }
                     break;
+
                 case 'clear':
                     output.innerHTML = '';
                     break;
+
                 default:
-                    printLine("COMMAND NOT RECOGNIZED", "error");
+                    await printLines([{text: "UNKNOWN COMMAND. TYPE 'HELP' FOR SYSTEM ASSISTANCE.", cls: "error"}]);
             }
         }
 
-        // Tap/Click anywhere to focus input
-        document.addEventListener('click', () => input.focus());
+        // Initial boot sequence
+        window.onload = () => {
+            printLines([
+                {text: "*** $DONTBUY SYSTEM BOOT v2.0.4 ***", cls: "success"},
+                {text: "ESTABLISHING SECURE CONNECTION..."},
+                {text: "NODE: REMOTE_TERMINAL_01"},
+                {text: "STATUS: ENCRYPTED ACCESS GRANTED."},
+                {text: " "}
+            ]);
+        };
+
+        document.addEventListener('click', () => { if(!isPrinting) input.focus(); });
     </script>
 </body>
 </html>

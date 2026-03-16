@@ -53,7 +53,7 @@ async function printLines(lines) {
         div.textContent = line.text;
         output.appendChild(div);
         output.scrollTop = output.scrollHeight;
-        await new Promise(r => setTimeout(r, 20));
+        await new Promise(r => setTimeout(r, 10));
     }
     isPrinting = false;
     input.disabled = false;

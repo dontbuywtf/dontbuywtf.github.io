@@ -4,10 +4,12 @@
  */
 
 // Encoded Values:
+// l: SIGNAL (Login Key)
 // p: 333 (Password)
 // k: VOID-777-ALPHA (Secret Key)
 // m: dontbuythis@proton.me (Contact)
 const _0xDATA = {
+    l: "U0lHTkFM", 
     p: "MzMz", 
     k: "Vk9JRC03NzctQUxQSEE=",
     m: "ZG9udGJ1eXRoaXNAcHJvdG9uLm1l"
@@ -19,10 +21,11 @@ const promptSpan = document.getElementById('prompt');
 
 let currentDir = 'root';
 let isPrinting = false;
+let isAuthenticated = false; // System state: locked
 
 const fileSystem = {
     'root': { 
-        dirs: ['logs', 'vault', 'comms'], // Added 'comms' folder
+        dirs: ['logs', 'vault', 'comms'],
         files: { 
             'manifesto.txt': "THE VOID IS THE ONLY PERMANENT RECORD.",
             'readme.txt': "TYPE 'HELP' TO BEGIN SYSTEM DIAGNOSTICS.",
@@ -79,8 +82,11 @@ async function printLines(lines) {
 input.addEventListener('keydown', async (e) => {
     // --- TAB AUTOCOMPLETE LOGIC ---
     if (e.key === 'Tab') {
-        e.preventDefault(); // Stop the focus from leaving the input
+        e.preventDefault();
         
+        // Disable autocomplete if not logged in
+        if (!isAuthenticated) return;
+
         const val = input.value.trim();
         const parts = val.split(' ');
         const currentInput = parts[parts.length - 1].toLowerCase();
@@ -88,18 +94,13 @@ input.addEventListener('keydown', async (e) => {
         if (!currentInput) return;
 
         const fs = fileSystem[currentDir];
-        // Combine dirs and files into one searchable list
         const pool = fs.dirs.concat(Object.keys(fs.files));
-        
-        // Find matches
         const matches = pool.filter(item => item.toLowerCase().startsWith(currentInput));
 
         if (matches.length === 1) {
-            // One match found: Auto-fill it
             parts[parts.length - 1] = matches[0];
             input.value = parts.join(' ');
         } else if (matches.length > 1) {
-            // Multiple matches: Print them so the user knows options
             const historyLine = document.createElement('div');
             historyLine.className = 'cmd-line';
             historyLine.textContent = `> ${matches.join('   ')}`;
@@ -109,24 +110,46 @@ input.addEventListener('keydown', async (e) => {
         return;
     }
 
-    // --- ENTER KEY LOGIC (Existing) ---
+    // --- ENTER KEY LOGIC ---
     if (e.key === 'Enter' && !isPrinting) {
         const val = input.value.trim();
         if (!val) return;
+        
+        // Log the command to terminal
+        const h = document.createElement('div');
+        h.className = 'cmd-line';
+        // For login, we hide the password in the history for safety
+        h.textContent = isAuthenticated ? `${promptSpan.textContent} ${val}` : `${promptSpan.textContent} ********`;
+        output.appendChild(h);
+        
         const [cmd, ...args] = val.split(' ');
         const arg = args.join(' ');
 
-        const h = document.createElement('div');
-        h.className = 'cmd-line';
-        h.textContent = `${promptSpan.textContent} ${val}`;
-        output.appendChild(h);
-        
         input.value = '';
         await handleCommand(cmd.toLowerCase(), arg);
     }
 });
 
 async function handleCommand(cmd, arg) {
+    // --- LOGIN GATE LOGIC ---
+    if (!isAuthenticated) {
+        if (window.btoa(cmd.toUpperCase()) === _0xDATA.l) {
+            isAuthenticated = true;
+            promptSpan.textContent = "root>";
+            await printLines([
+                {text: "ACCESS GRANTED.", cls: "success"},
+                {text: "AUTHENTICATION SUCCESSFUL. WELCOME, AUTHORIZED ENTITY."},
+                {text: "TYPE 'HELP' TO SEE AVAILABLE SYSTEM COMMANDS."},
+                {text: " "}
+            ]);
+        } else {
+            await printLines([{text: "INVALID ACCESS KEY. ATTEMPT LOGGED.", cls: "error"}]);
+            promptSpan.textContent = "LOGIN>";
+        }
+        return;
+    }
+
+    // --- MAIN SYSTEM LOGIC (Authenticated Only) ---
     const fs = fileSystem[currentDir];
     switch(cmd) {
         case 'help':
@@ -177,10 +200,11 @@ async function handleCommand(cmd, arg) {
 }
 
 window.onload = () => {
+    promptSpan.textContent = "LOGIN>"; 
     printLines([
         {text: "*** $DONTBUY NODE ACCESS ***", cls: "success"},
-        {text: "STATUS: ENCRYPTED CONNECTION ESTABLISHED."},
-        {text: "TYPE 'HELP' TO START."},
+        {text: "STATION ID: VOID_NODE_01"},
+        {text: "SYSTEM IS LOCKED. ENTER ACCESS KEY:"},
         {text: " "}
     ]);
 };

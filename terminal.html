@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$DONTBUY_TERMINAL_V2</title>
+    <style>
+        body { background: #000; color: #afdd9f; font-family: 'Courier New', Courier, monospace; padding: 20px; overflow: hidden; }
+        #terminal { height: 85vh; overflow-y: auto; margin-bottom: 20px; border-bottom: 1px solid #222; }
+        #input-line { display: flex; align-items: center; }
+        #prompt { font-weight: bold; margin-right: 10px; white-space: nowrap; }
+        input { background: transparent; border: none; color: #afdd9f; outline: none; font-family: inherit; font-size: 1.1rem; width: 100%; }
+        .error { color: #ff6666; }
+        .success { color: #55ff55; text-shadow: 0 0 8px #55ff55; }
+        .dir { color: #88ccff; font-weight: bold; }
+        .flicker { animation: flicker 0.15s infinite; }
+        @keyframes flicker { 0% { opacity: 0.97; } 50% { opacity: 1; } 100% { opacity: 0.98; } }
+    </style>
+</head>
+<body class="flicker">
+    <div id="terminal">
+        <div>*** $DONTBUY FILESYSTEM ACCESS [AUTHORIZED] ***</div>
+        <div>TYPE 'HELP' FOR COMMANDS. FIND THE VOID_SIGNAL.</div>
+        <br>
+    </div>
+    <div id="input-line">
+        <span id="prompt">root></span><input type="text" id="cmd" autofocus autocomplete="off">
+    </div>
+
+    <script>
+        const output = document.getElementById('terminal');
+        const input = document.getElementById('cmd');
+        const promptSpan = document.getElementById('prompt');
+
+        let currentDir = 'root';
+        
+        // --- FILE SYSTEM STRUCTURE ---
+        const fileSystem = {
+            'root': {
+                dirs: ['logs', 'vault', 'archives'],
+                files: { 'readme.txt': "THE VOID IS NOT A PLACE. IT IS A LEDGER." }
+            },
+            'logs': {
+                dirs: [],
+                files: {
+                    'intercept_01.log': "2026-03-13: DISOBEDIENCE DETECTED IN SECTOR 7.",
+                    'intercept_02.log': "2026-03-14: USER 333 HAS ENTERED THE PERIMETER."
+                }
+            },
+            'vault': {
+                dirs: ['restricted'],
+                files: { 'hint.txt': "THE KEY IS HIDDEN IN THE TOTAL SUPPLY OF THE RECEIPTS." }
+            },
+            'archives': {
+                dirs: [],
+                files: { 'manifesto.pdf': "WE DON'T BUY. WE DON'T SELL. WE WITNESS." }
+            },
+            'restricted': {
+                dirs: [],
+                files: { 'void_signal.enc': "ERROR: ENCRYPTION DETECTED. TYPE 'DECRYPT 333' TO UNLOCK." }
+            }
+        };
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const val = input.value.trim();
+                const parts = val.split(' ');
+                const cmd = parts[0].toLowerCase();
+                const arg = parts.slice(1).join(' ');
+
+                printLine(`${promptSpan.textContent} ${val}`);
+                handleCommand(cmd, arg);
+                
+                input.value = '';
+                output.scrollTop = output.scrollHeight;
+            }
+        });
+
+        function printLine(text, cls = "") {
+            const div = document.createElement('div');
+            div.textContent = text;
+            if (cls) div.className = cls;
+            output.appendChild(div);
+        }
+
+        function handleCommand(cmd, arg) {
+            const fs = fileSystem[currentDir];
+
+            switch(cmd) {
+                case 'help':
+                    printLine("LS - List contents | CD [dir] - Change dir | CAT [file] - Read file");
+                    printLine("DECRYPT [pass] - Unlock .enc | CLEAR - Wipe screen | CD .. - Go back");
+                    break;
+                
+                case 'ls':
+                    let contents = fs.dirs.map(d => `[DIR] ${d}`).concat(Object.keys(fs.files));
+                    if (contents.length === 0) printLine("Directory is empty.");
+                    else printLine(contents.join('   '));
+                    break;
+
+                case 'cd':
+                    if (!arg || arg === "") return;
+                    if (arg === '..') {
+                        currentDir = 'root'; // Simplified back logic
+                    } else if (fs.dirs.includes(arg)) {
+                        currentDir = arg;
+                    } else {
+                        printLine(`ERROR: Directory '${arg}' not found.`, "error");
+                    }
+                    promptSpan.textContent = `${currentDir}>`;
+                    break;
+
+                case 'cat':
+                    if (fs.files[arg]) printLine(fs.files[arg]);
+                    else printLine("ERROR: File not found.", "error");
+                    break;
+
+                case 'decrypt':
+                    if (arg === '333') {
+                        printLine("SIGNAL DECRYPTED: 'VOID-777-ALPHA'. EMAIL THIS TO THE PROTON ADDR.", "success");
+                    } else {
+                        printLine("INVALID DECRYPTION KEY.", "error");
+                    }
+                    break;
+
+                case 'clear':
+                    output.innerHTML = '';
+                    break;
+
+                default:
+                    if (cmd !== "") printLine(`Unknown command: ${cmd}`, "error");
+            }
+        }
+    </script>
+</body>
+</html>

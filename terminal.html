@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>$DONTBUY_SYSTEM_TERMINAL</title>
+    <title>$DONTBUY_SYSTEM</title>
     <style>
         :root { --green: #afdd9f; --bg: #050505; --dim-green: rgba(175, 221, 159, 0.4); }
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
             background: #000; color: var(--green); 
             font-family: 'Courier New', Courier, monospace; 
@@ -16,7 +16,13 @@
         #container {
             width: 100%; max-width: 900px; height: 100%;
             background: var(--bg); display: flex; flex-direction: column;
-            position: relative; box-shadow: 0 0 40px rgba(0,0,0,1);
+            position: relative;
+        }
+        /* Scanline Overlay */
+        #container::after {
+            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            z-index: 10; background-size: 100% 3px; pointer-events: none;
         }
         #terminal { 
             flex: 1; overflow-y: auto; padding: 25px;
@@ -29,7 +35,7 @@
             display: flex; border-top: 1px solid #151515;
             padding-bottom: calc(15px + env(safe-area-inset-bottom));
         }
-        #prompt { font-weight: bold; margin-right: 12px; color: var(--green); }
+        #prompt { font-weight: bold; margin-right: 12px; color: var(--green); white-space: nowrap; }
         input { 
             background: transparent; border: none; color: var(--green); 
             outline: none; font-family: inherit; font-size: 16px; flex: 1;
@@ -47,134 +53,6 @@
             <input type="text" id="cmd" autofocus autocomplete="off" spellcheck="false" autocapitalize="none">
         </div>
     </div>
-
-    <script>
-        const output = document.getElementById('terminal');
-        const input = document.getElementById('cmd');
-        const promptSpan = document.getElementById('prompt');
-
-        let currentDir = 'root';
-        let isPrinting = false;
-
-        const fileSystem = {
-            'root': { dirs: ['logs', 'vault'], files: { 'manifesto.txt': "THE VOID IS THE ONLY PERMANENT RECORD." } },
-            'logs': { dirs: [], files: { 'session_01.log': "2026-03-16: ACCESS GRANTED TO NODE_333." } },
-            'vault': { dirs: [], files: { 'signal.enc': "ENCRYPTED FREQUENCY. PASSWORD REQUIRED." } }
-        };
-
-        // --- LINE-BY-LINE PRINTING LOGIC ---
-        async function printLines(lines) {
-            isPrinting = true;
-            input.disabled = true;
-            
-            for (let line of lines) {
-                const div = document.createElement('div');
-                if (line.cls) div.className = line.cls;
-                div.textContent = line.text; // Instant line appear
-                output.appendChild(div);
-                
-                output.scrollTop = output.scrollHeight;
-                await new Promise(r => setTimeout(r, 150)); // Fast delay between lines
-            }
-            
-            isPrinting = false;
-            input.disabled = false;
-            input.focus();
-        }
-
-        const helpData = [
-            { cmd: "LS", desc: "List all items in the current directory." },
-            { cmd: "CD [DIR]", desc: "Change directory (Use 'CD ..' to go back)." },
-            { cmd: "CAT [FILE]", desc: "Read the contents of a specific file." },
-            { cmd: "DECRYPT [KEY]", desc: "Attempt to unlock encrypted files." },
-            { cmd: "CLEAR", desc: "Purge the current terminal session." }
-        ];
-
-        input.addEventListener('keydown', async (e) => {
-            if (e.key === 'Enter' && !isPrinting) {
-                const val = input.value.trim();
-                if (!val) return;
-                
-                const [cmd, ...args] = val.split(' ');
-                const arg = args.join(' ');
-
-                const historyLine = document.createElement('div');
-                historyLine.className = 'cmd-line';
-                historyLine.textContent = `${promptSpan.textContent} ${val}`;
-                output.appendChild(historyLine);
-                
-                input.value = '';
-                await handleCommand(cmd.toLowerCase(), arg);
-            }
-        });
-
-        async function handleCommand(cmd, arg) {
-            const fs = fileSystem[currentDir];
-
-            switch(cmd) {
-                case 'help':
-                    let helpLines = [{text: "AVAILABLE COMMANDS:", cls: "success"}];
-                    helpData.forEach(item => {
-                        helpLines.push({text: `  ${item.cmd.padEnd(12)} - ${item.desc}`});
-                    });
-                    await printLines(helpLines);
-                    break;
-
-                case 'ls':
-                    let items = fs.dirs.map(d => `[${d.toUpperCase()}]`).concat(Object.keys(fs.files));
-                    await printLines([{text: items.length ? items.join('   ') : "Empty."}]);
-                    break;
-
-                case 'cd':
-                    if (arg === '..') {
-                        currentDir = 'root';
-                        promptSpan.textContent = `root>`;
-                        await printLines([{text: "Returned to root."}]);
-                    } else if (fs.dirs.includes(arg)) {
-                        currentDir = arg;
-                        promptSpan.textContent = `${currentDir}>`;
-                        await printLines([{text: `Accessing ${arg}...`}]);
-                    } else {
-                        await printLines([{text: "ERROR: PATH NOT FOUND", cls: "error"}]);
-                    }
-                    break;
-
-                case 'cat':
-                    if (fs.files[arg]) await printLines([{text: fs.files[arg]}]);
-                    else await printLines([{text: "ERROR: FILE NOT FOUND", cls: "error"}]);
-                    break;
-
-                case 'decrypt':
-                    if (arg === '333') {
-                        await printLines([
-                            {text: "VERIFYING KEY...", cls: "success"},
-                            {text: "SIGNAL RECOVERED: VOID-777-ALPHA"},
-                            {text: "SUBMIT TO: dontbuythis@proton.me"}
-                        ]);
-                    } else {
-                        await printLines([{text: "DECRYPTION FAILED. ACCESS DENIED.", cls: "error"}]);
-                    }
-                    break;
-
-                case 'clear':
-                    output.innerHTML = '';
-                    break;
-
-                default:
-                    await printLines([{text: "UNKNOWN COMMAND.", cls: "error"}]);
-            }
-        }
-
-        window.onload = () => {
-            printLines([
-                {text: "*** $DONTBUY SYSTEM BOOT ***", cls: "success"},
-                {text: "NODE: REMOTE_TERMINAL_01"},
-                {text: "STATUS: ENCRYPTED ACCESS GRANTED."},
-                {text: " "}
-            ]);
-        };
-
-        document.addEventListener('click', () => { if(!isPrinting) input.focus(); });
-    </script>
+    <script src="terminal-core.js"></script>
 </body>
 </html>

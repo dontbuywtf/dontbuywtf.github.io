@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>$DONTBUY_SYSTEM_TERMINAL</title>
     <style>
-        :root { --green: #afdd9f; --bg: #050505; --dim-green: rgba(175, 221, 159, 0.6); }
+        :root { --green: #afdd9f; --bg: #050505; --dim-green: rgba(175, 221, 159, 0.4); }
         * { box-sizing: border-box; }
         body { 
             background: #000; color: var(--green); 
@@ -37,12 +37,11 @@
         .cmd-line { color: var(--dim-green); margin-bottom: 5px; }
         .success { color: #55ff55; text-shadow: 0 0 8px #55ff55; }
         .error { color: #ff5555; }
-        .help-grid { display: grid; grid-template-columns: 120px 1fr; margin: 10px 0; }
     </style>
 </head>
 <body>
     <div id="container">
-        <div id="terminal" role="log" aria-live="polite"></div>
+        <div id="terminal"></div>
         <div id="input-area">
             <span id="prompt">root></span>
             <input type="text" id="cmd" autofocus autocomplete="off" spellcheck="false" autocapitalize="none">
@@ -63,23 +62,19 @@
             'vault': { dirs: [], files: { 'signal.enc': "ENCRYPTED FREQUENCY. PASSWORD REQUIRED." } }
         };
 
-        // --- THE "REAL TERMINAL" PRINTING LOGIC ---
+        // --- LINE-BY-LINE PRINTING LOGIC ---
         async function printLines(lines) {
             isPrinting = true;
-            input.disabled = true; // Block input while printing
+            input.disabled = true;
             
             for (let line of lines) {
                 const div = document.createElement('div');
                 if (line.cls) div.className = line.cls;
+                div.textContent = line.text; // Instant line appear
                 output.appendChild(div);
                 
-                // Typewriter effect for each line
-                for (let char of line.text) {
-                    div.textContent += char;
-                    await new Promise(r => setTimeout(r, 15)); // Speed of typing
-                }
                 output.scrollTop = output.scrollHeight;
-                await new Promise(r => setTimeout(r, 100)); // Gap between lines
+                await new Promise(r => setTimeout(r, 150)); // Fast delay between lines
             }
             
             isPrinting = false;
@@ -91,9 +86,8 @@
             { cmd: "LS", desc: "List all items in the current directory." },
             { cmd: "CD [DIR]", desc: "Change directory (Use 'CD ..' to go back)." },
             { cmd: "CAT [FILE]", desc: "Read the contents of a specific file." },
-            { cmd: "DECRYPT", desc: "Attempt to unlock encrypted files." },
-            { cmd: "CLEAR", desc: "Purge the current terminal session." },
-            { cmd: "EXIT", desc: "Terminate remote connection." }
+            { cmd: "DECRYPT [KEY]", desc: "Attempt to unlock encrypted files." },
+            { cmd: "CLEAR", desc: "Purge the current terminal session." }
         ];
 
         input.addEventListener('keydown', async (e) => {
@@ -104,7 +98,6 @@
                 const [cmd, ...args] = val.split(' ');
                 const arg = args.join(' ');
 
-                // Add the command to history immediately
                 const historyLine = document.createElement('div');
                 historyLine.className = 'cmd-line';
                 historyLine.textContent = `${promptSpan.textContent} ${val}`;
@@ -122,27 +115,27 @@
                 case 'help':
                     let helpLines = [{text: "AVAILABLE COMMANDS:", cls: "success"}];
                     helpData.forEach(item => {
-                        helpLines.push({text: `  ${item.cmd.padEnd(10)} - ${item.desc}`});
+                        helpLines.push({text: `  ${item.cmd.padEnd(12)} - ${item.desc}`});
                     });
                     await printLines(helpLines);
                     break;
 
                 case 'ls':
                     let items = fs.dirs.map(d => `[${d.toUpperCase()}]`).concat(Object.keys(fs.files));
-                    await printLines([{text: items.length ? items.join('   ') : "Directory is empty."}]);
+                    await printLines([{text: items.length ? items.join('   ') : "Empty."}]);
                     break;
 
                 case 'cd':
                     if (arg === '..') {
                         currentDir = 'root';
                         promptSpan.textContent = `root>`;
-                        await printLines([{text: "Directory changed to root."}]);
+                        await printLines([{text: "Returned to root."}]);
                     } else if (fs.dirs.includes(arg)) {
                         currentDir = arg;
                         promptSpan.textContent = `${currentDir}>`;
-                        await printLines([{text: `Directory changed to ${arg}.`}]);
+                        await printLines([{text: `Accessing ${arg}...`}]);
                     } else {
-                        await printLines([{text: "ERROR: DIRECTORY NOT FOUND", cls: "error"}]);
+                        await printLines([{text: "ERROR: PATH NOT FOUND", cls: "error"}]);
                     }
                     break;
 
@@ -154,12 +147,12 @@
                 case 'decrypt':
                     if (arg === '333') {
                         await printLines([
-                            {text: "ACCESS GRANTED.", cls: "success"},
-                            {text: "SIGNAL FOUND: VOID-777-ALPHA"},
+                            {text: "VERIFYING KEY...", cls: "success"},
+                            {text: "SIGNAL RECOVERED: VOID-777-ALPHA"},
                             {text: "SUBMIT TO: dontbuythis@proton.me"}
                         ]);
                     } else {
-                        await printLines([{text: "DECRYPTION FAILED. INVALID KEY.", cls: "error"}]);
+                        await printLines([{text: "DECRYPTION FAILED. ACCESS DENIED.", cls: "error"}]);
                     }
                     break;
 
@@ -168,15 +161,13 @@
                     break;
 
                 default:
-                    await printLines([{text: "UNKNOWN COMMAND. TYPE 'HELP' FOR SYSTEM ASSISTANCE.", cls: "error"}]);
+                    await printLines([{text: "UNKNOWN COMMAND.", cls: "error"}]);
             }
         }
 
-        // Initial boot sequence
         window.onload = () => {
             printLines([
-                {text: "*** $DONTBUY SYSTEM BOOT v2.0.4 ***", cls: "success"},
-                {text: "ESTABLISHING SECURE CONNECTION..."},
+                {text: "*** $DONTBUY SYSTEM BOOT ***", cls: "success"},
                 {text: "NODE: REMOTE_TERMINAL_01"},
                 {text: "STATUS: ENCRYPTED ACCESS GRANTED."},
                 {text: " "}

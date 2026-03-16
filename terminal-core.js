@@ -38,7 +38,6 @@ const fileSystem = {
             'session_01.log': "2026-03-16: SNAPSHOT SUCCESSFUL.",
             'session_02.log': "2026-03-17: 333 NEW ENTRIES DETECTED.",
             'error.log': "WARNING: NON-COMPLIANCE DETECTED IN SECTOR 7."
-        
         } 
     },
     'logs': { 

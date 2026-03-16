@@ -151,7 +151,7 @@ async function handleCommand(cmd, arg) {
             isAuthenticated = true;
             promptSpan.textContent = "root>";
             await printLines([
-                {text: "ACCESS GRANTED.", cls: "success"},
+                {text: "ROOT ACCESS GRANTED.", cls: "success"},
                 {text: "AUTHENTICATION SUCCESSFUL. WELCOME, AUTHORIZED ENTITY."},
                 {text: "TYPE 'HELP' TO SEE AVAILABLE SYSTEM COMMANDS."},
                 {text: " "}

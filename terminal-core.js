@@ -25,13 +25,20 @@ let isAuthenticated = false; // System state: locked
 
 const fileSystem = {
     'root': { 
-        dirs: ['logs', 'vault', 'comms'],
+        dirs: ['files', 'logs', 'temp' 'vault', 'comms'],
         files: { 
             'manifesto.txt': "THE VOID IS THE ONLY PERMANENT RECORD.",
             'readme.txt': "TYPE 'HELP' TO BEGIN SYSTEM DIAGNOSTICS.",
             'version.sys': "BUILD 2.0.4 - STABLE"
         } 
     },
+    'files': { 
+        dirs: ['Common files', 'Wallets', 'Snapshots'], 
+        files: { 
+            'session_01.log': "2026-03-16: SNAPSHOT SUCCESSFUL.",
+            'session_02.log': "2026-03-17: 333 NEW ENTRIES DETECTED.",
+            'error.log': "WARNING: NON-COMPLIANCE DETECTED IN SECTOR 7."
+        } 
     'logs': { 
         dirs: [], 
         files: { 

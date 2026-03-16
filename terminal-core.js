@@ -22,26 +22,42 @@ let isPrinting = false;
 
 const fileSystem = {
     'root': { 
-        dirs: ['logs', 'vault'], 
-        files: { 'manifesto.txt': "THE VOID IS THE ONLY PERMANENT RECORD." } 
-    },
-    'files': {
-        dirs: [],
-        files: { 'void_signal.enc': "ENCRYPTED FREQUENCY. USE 'DECRYPT [KEY]'." }
+        dirs: ['logs', 'vault', 'comms'], // Added 'comms' folder
+        files: { 
+            'manifesto.txt': "THE VOID IS THE ONLY PERMANENT RECORD.",
+            'readme.txt': "TYPE 'HELP' TO BEGIN SYSTEM DIAGNOSTICS.",
+            'version.sys': "BUILD 2.0.4 - STABLE"
+        } 
     },
     'logs': { 
         dirs: [], 
-        files: { 'system.log': "2026-03-16: SNAPSHOT SUCCESSFUL. NODE_333 ACTIVE." } 
+        files: { 
+            'session_01.log': "2026-03-16: SNAPSHOT SUCCESSFUL.",
+            'session_02.log': "2026-03-17: 333 NEW ENTRIES DETECTED.",
+            'error.log': "WARNING: NON-COMPLIANCE DETECTED IN SECTOR 7."
+        } 
     },
     'vault': { 
         dirs: ['restricted'], 
-        files: { 'note.txt': "THE TOTAL SUPPLY OF RECEIPTS IS THE KEY TO THE VAULT." } 
+        files: { 
+            'security_hint.txt': "THE TOTAL SUPPLY IS THE KEY.",
+            'access_log.txt': "LAST ACCESS: [REDACTED]"
+        } 
     },
     'restricted': {
         dirs: [],
-        files: { 'void_signal.enc': "ENCRYPTED FREQUENCY. USE 'DECRYPT [KEY]'." }
+        files: { 
+            'void_signal.enc': "ENCRYPTED. USE 'DECRYPT [KEY]'.",
+            'frequency.txt': "0.333MHz - OSCILLATION STABLE."
+        }
+    },
+    'comms': {
+        dirs: [],
+        files: {
+            'void_mail.txt': "dontbuythis@proton.me",
+            'broadcast.txt': "THE SIGNAL GROWS STRONGER."
+        }
     }
-    
 };
 
 async function printLines(lines) {

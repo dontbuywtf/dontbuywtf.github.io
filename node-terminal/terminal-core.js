@@ -1,1 +1,226 @@
-const _0xDATA={'\u006C':"\u0055\u0030\u006C\u0048\u0054\u006B\u0046\u004D",'\u0070':"\u004D\u007A\u004D\u007A",'\u006B':"\u0056\u006B\u0039\u004A\u0052\u0043\u0030\u0033\u004E\u007A\u0063\u0074\u0051\u0055\u0078\u0051\u0053\u0045\u0045\u003D",'\u006D':"ZG9udGJ1eXRoaXNAcHJvdG9uLm1l"};var _0xa10e=(508042^508046)+(952358^952358);const output=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0074\u0065\u0072\u006D\u0069\u006E\u0061\u006C");_0xa10e=758628^758625;let _0xb0955c;const input=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0063\u006D\u0064");_0xb0955c=(876371^876373)+(623916^623917);var _0x99d=(819683^819687)+(447813^447810);const promptSpan=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("tpmorp".split("").reverse().join(""));_0x99d='\u0067\u0067\u006B\u0066\u006D\u0062';let currentDir="toor".split("").reverse().join("");let isPrinting=false;var _0x2fa8c=(297255^297253)+(273991^273991);let isAuthenticated=false;_0x2fa8c=(534589^534585)+(644869^644871);const fileSystem={"\u0072\u006F\u006F\u0074":{'\u0064\u0069\u0072\u0073':["selif".split("").reverse().join(""),"sgol".split("").reverse().join(""),"\u0074\u0065\u006D\u0070","tluav".split("").reverse().join(""),"\u0063\u006F\u006D\u006D\u0073"],'\u0066\u0069\u006C\u0065\u0073':{"\u006D\u0061\u006E\u0069\u0066\u0065\u0073\u0074\u006F\u002E\u0074\u0078\u0074":"\u0054\u0048\u0045\u0020\u0056\u004F\u0049\u0044\u0020\u0049\u0053\u0020\u0054\u0048\u0045\u0020\u004F\u004E\u004C\u0059\u0020\u0050\u0045\u0052\u004D\u0041\u004E\u0045\u004E\u0054\u0020\u0052\u0045\u0043\u004F\u0052\u0044\u002E",'readme.txt':"TYPE 'HELP' TO BEGIN SYSTEM DIAGNOSTICS.","\u0076\u0065\u0072\u0073\u0069\u006F\u006E\u002E\u0073\u0079\u0073":"BUILD 2.0.4 - STABLE"}},"\u0066\u0069\u006C\u0065\u0073":{'\u0064\u0069\u0072\u0073':["selif_nommoc".split("").reverse().join(""),"stellaw".split("").reverse().join(""),"stohspans".split("").reverse().join("")],'\u0066\u0069\u006C\u0065\u0073':{'session_01.log':"2026-03-16: SNAPSHOT SUCCESSFUL.","\u0073\u0065\u0073\u0073\u0069\u006F\u006E\u005F\u0030\u0032\u002E\u006C\u006F\u0067":"\u0032\u0030\u0032\u0036\u002D\u0030\u0033\u002D\u0031\u0037\u003A\u0020\u0033\u0033\u0033\u0020\u004E\u0045\u0057\u0020\u0045\u004E\u0054\u0052\u0049\u0045\u0053\u0020\u0044\u0045\u0054\u0045\u0043\u0054\u0045\u0044\u002E","\u0065\u0072\u0072\u006F\u0072\u002E\u006C\u006F\u0067":"WARNING: NON-COMPLIANCE DETECTED IN SECTOR 7."}},'common_files':{'\u0064\u0069\u0072\u0073':[],"files":{'note.txt':"Public assets only."}},"\u0077\u0061\u006C\u006C\u0065\u0074\u0073":{'\u0064\u0069\u0072\u0073':[],"files":{"\u006C\u0065\u0064\u0067\u0065\u0072\u002E\u0074\u0078\u0074":"\u0045\u006D\u0070\u0074\u0079\u002E"}},'snapshots':{'\u0064\u0069\u0072\u0073':[],'\u0066\u0069\u006C\u0065\u0073':{'backup.001':"Corruption detected."}},"\u006C\u006F\u0067\u0073":{'\u0064\u0069\u0072\u0073':[],"files":{"\u0073\u0065\u0073\u0073\u0069\u006F\u006E\u005F\u0030\u0031\u002E\u006C\u006F\u0067":"\u0032\u0030\u0032\u0036\u002D\u0030\u0033\u002D\u0031\u0036\u003A\u0020\u0053\u004E\u0041\u0050\u0053\u0048\u004F\u0054\u0020\u0053\u0055\u0043\u0043\u0045\u0053\u0053\u0046\u0055\u004C\u002E",'session_02.log':"\u0032\u0030\u0032\u0036\u002D\u0030\u0033\u002D\u0031\u0037\u003A\u0020\u0033\u0033\u0033\u0020\u004E\u0045\u0057\u0020\u0045\u004E\u0054\u0052\u0049\u0045\u0053\u0020\u0044\u0045\u0054\u0045\u0043\u0054\u0045\u0044\u002E","\u0065\u0072\u0072\u006F\u0072\u002E\u006C\u006F\u0067":"\u0057\u0041\u0052\u004E\u0049\u004E\u0047\u003A\u0020\u004E\u004F\u004E\u002D\u0043\u004F\u004D\u0050\u004C\u0049\u0041\u004E\u0043\u0045\u0020\u0044\u0045\u0054\u0045\u0043\u0054\u0045\u0044\u0020\u0049\u004E\u0020\u0053\u0045\u0043\u0054\u004F\u0052\u0020\u0037\u002E"}},"\u0074\u0065\u006D\u0070":{'\u0064\u0069\u0072\u0073':[],"files":{"\u0063\u0061\u0063\u0068\u0065\u002E\u0074\u006D\u0070":"\u0053\u0079\u0073\u0074\u0065\u006D\u0020\u0067\u0061\u0072\u0062\u0061\u0067\u0065\u002E"}},"\u0076\u0061\u0075\u006C\u0074":{'\u0064\u0069\u0072\u0073':["\u0072\u0065\u0073\u0074\u0072\u0069\u0063\u0074\u0065\u0064"],"files":{"\u0073\u0065\u0063\u0075\u0072\u0069\u0074\u0079\u005F\u0068\u0069\u006E\u0074\u002E\u0074\u0078\u0074":"THE TOTAL SUPPLY IS THE KEY.","\u0061\u0063\u0063\u0065\u0073\u0073\u005F\u006C\u006F\u0067\u002E\u0074\u0078\u0074":"\u004C\u0041\u0053\u0054\u0020\u0041\u0043\u0043\u0045\u0053\u0053\u003A\u0020\u005B\u0052\u0045\u0044\u0041\u0043\u0054\u0045\u0044\u005D"}},"\u0072\u0065\u0073\u0074\u0072\u0069\u0063\u0074\u0065\u0064":{'\u0064\u0069\u0072\u0073':[],'\u0066\u0069\u006C\u0065\u0073':{"\u0076\u006F\u0069\u0064\u005F\u0073\u0069\u0067\u006E\u0061\u006C\u002E\u0065\u006E\u0063":"ENCRYPTED. USE 'DECRYPT [KEY]'.",'frequency.txt':"0.333MHz - OSCILLATION STABLE."}},"\u0063\u006F\u006D\u006D\u0073":{'\u0064\u0069\u0072\u0073':[],'\u0066\u0069\u006C\u0065\u0073':{"\u0076\u006F\u0069\u0064\u005F\u006D\u0061\u0069\u006C\u002E\u0074\u0078\u0074":"\u0064\u006F\u006E\u0074\u0062\u0075\u0079\u0074\u0068\u0069\u0073\u0040\u0070\u0072\u006F\u0074\u006F\u006E\u002E\u006D\u0065",'broadcast.txt':"\u0054\u0048\u0045\u0020\u0053\u0049\u0047\u004E\u0041\u004C\u0020\u0047\u0052\u004F\u0057\u0053\u0020\u0053\u0054\u0052\u004F\u004E\u0047\u0045\u0052\u002E"}}};async function printLines(lines){isPrinting=!![];input['\u0064\u0069\u0073\u0061\u0062\u006C\u0065\u0064']=!![];for(let _0x75e of lines){let _0x7g13d;const _0x_0x792=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("vid".split("").reverse().join(""));_0x7g13d=(722876^722875)+(563924^563921);if(_0x75e['\u0063\u006C\u0073'])_0x_0x792['\u0063\u006C\u0061\u0073\u0073\u004E\u0061\u006D\u0065']=_0x75e['\u0063\u006C\u0073'];_0x_0x792['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=_0x75e['\u0074\u0065\u0078\u0074'];output['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](_0x_0x792);output['\u0073\u0063\u0072\u006F\u006C\u006C\u0054\u006F\u0070']=output['\u0073\u0063\u0072\u006F\u006C\u006C\u0048\u0065\u0069\u0067\u0068\u0074'];await new Promise(r=>setTimeout(r,731793^731803));}isPrinting=false;input['\u0064\u0069\u0073\u0061\u0062\u006C\u0065\u0064']=false;input['\u0066\u006F\u0063\u0075\u0073']();}input['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("nwodyek".split("").reverse().join(""),async e=>{if(e['\u006B\u0065\u0079']==="\u0054\u0061\u0062"){e['\u0070\u0072\u0065\u0076\u0065\u006E\u0074\u0044\u0065\u0066\u0061\u0075\u006C\u0074']();if(!isAuthenticated)return;var _0xfg25b=(742933^742941)+(485225^485229);const val=input['\u0076\u0061\u006C\u0075\u0065']['\u0074\u0072\u0069\u006D']();_0xfg25b=(639892^639888)+(842940^842937);var _0x90eg3b=(348451^348448)+(224579^224583);const parts=val['\u0073\u0070\u006C\u0069\u0074']("\u0020");_0x90eg3b="bimkjm".split("").reverse().join("");const currentInput=parts[parts['\u006C\u0065\u006E\u0067\u0074\u0068']-(435824^435825)]['\u0074\u006F\u004C\u006F\u0077\u0065\u0072\u0043\u0061\u0073\u0065']();if(!currentInput)return;let _0x2f_0xa4e;const fs=fileSystem[currentDir];_0x2f_0xa4e=(689939^689937)+(400353^400360);const pool=fs['\u0064\u0069\u0072\u0073']['\u0063\u006F\u006E\u0063\u0061\u0074'](Object['\u006B\u0065\u0079\u0073'](fs['\u0066\u0069\u006C\u0065\u0073']));var _0xfd92b=(979822^979820)+(636315^636319);const matches=pool['\u0066\u0069\u006C\u0074\u0065\u0072'](item=>item['\u0074\u006F\u004C\u006F\u0077\u0065\u0072\u0043\u0061\u0073\u0065']()['\u0073\u0074\u0061\u0072\u0074\u0073\u0057\u0069\u0074\u0068'](currentInput));_0xfd92b='\u006C\u0064\u0067\u006C\u006A\u0063';if(matches['\u006C\u0065\u006E\u0067\u0074\u0068']===(870986^870987)){parts[parts['\u006C\u0065\u006E\u0067\u0074\u0068']-(504380^504381)]=matches[219382^219382];input['\u0076\u0061\u006C\u0075\u0065']=parts['\u006A\u006F\u0069\u006E']("\u0020");}else if(matches['\u006C\u0065\u006E\u0067\u0074\u0068']>(789526^789527)){let _0x942bb;const historyLine=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("\u0064\u0069\u0076");_0x942bb=(247252^247250)+(976936^976942);historyLine['\u0063\u006C\u0061\u0073\u0073\u004E\u0061\u006D\u0065']="\u0063\u006D\u0064\u002D\u006C\u0069\u006E\u0065";historyLine['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=`> ${matches['\u006A\u006F\u0069\u006E']("\u0020\u0020\u0020")}`;output['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](historyLine);output['\u0073\u0063\u0072\u006F\u006C\u006C\u0054\u006F\u0070']=output['\u0073\u0063\u0072\u006F\u006C\u006C\u0048\u0065\u0069\u0067\u0068\u0074'];}return;}if(e['\u006B\u0065\u0079']==="\u0045\u006E\u0074\u0065\u0072"&&!isPrinting){let _0x5c_0xf5g;const val=input['\u0076\u0061\u006C\u0075\u0065']['\u0074\u0072\u0069\u006D']();_0x5c_0xf5g=(270660^270669)+(390225^390228);if(!val)return;const h=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("vid".split("").reverse().join(""));h['\u0063\u006C\u0061\u0073\u0073\u004E\u0061\u006D\u0065']="\u0063\u006D\u0064\u002D\u006C\u0069\u006E\u0065";h['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=isAuthenticated?`${promptSpan['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']} ${val}`:`${promptSpan['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']} ********`;output['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](h);const[cmd,...args]=val['\u0073\u0070\u006C\u0069\u0074']("\u0020");var _0xc3de=(652105^652106)+(258691^258691);const arg=args['\u006A\u006F\u0069\u006E']("\u0020");_0xc3de=(657532^657530)+(404998^404992);input['\u0076\u0061\u006C\u0075\u0065']='';await handleCommand(cmd['\u0074\u006F\u004C\u006F\u0077\u0065\u0072\u0043\u0061\u0073\u0065'](),arg);}});async function handleCommand(cmd,arg){if(!isAuthenticated){if(window['\u0062\u0074\u006F\u0061'](cmd['\u0074\u006F\u0055\u0070\u0070\u0065\u0072\u0043\u0061\u0073\u0065']())===_0xDATA['\u006C']){isAuthenticated=!![];promptSpan['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=">toor".split("").reverse().join("");await printLines([{'\u0074\u0065\u0078\u0074':"\u0052\u004F\u004F\u0054\u0020\u0041\u0043\u0043\u0045\u0053\u0053\u0020\u0047\u0052\u0041\u004E\u0054\u0045\u0044\u002E","cls":"\u0073\u0075\u0063\u0063\u0065\u0073\u0073"},{'\u0074\u0065\u0078\u0074':"AUTHENTICATION SUCCESSFUL. WELCOME, AUTHORIZED ENTITY."},{'\u0074\u0065\u0078\u0074':"\u0054\u0059\u0050\u0045\u0020\u0027\u0048\u0045\u004C\u0050\u0027\u0020\u0054\u004F\u0020\u0053\u0045\u0045\u0020\u0041\u0056\u0041\u0049\u004C\u0041\u0042\u004C\u0045\u0020\u0053\u0059\u0053\u0054\u0045\u004D\u0020\u0043\u004F\u004D\u004D\u0041\u004E\u0044\u0053\u002E"},{"text":"\u0020"}]);}else{await printLines([{'\u0074\u0065\u0078\u0074':"INVALID PASSWORD. ATTEMPT LOGGED.",'\u0063\u006C\u0073':"error"}]);promptSpan['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']="\u004C\u004F\u0047\u0049\u004E\u003E";}return;}var _0x569a=(400263^400270)+(247969^247968);const _0x4b_0xg19=fileSystem[currentDir];_0x569a=(831603^831604)+(524162^524165);switch(cmd){case"pleh".split("").reverse().join(""):await printLines([{"text":"\u0053\u0059\u0053\u0054\u0045\u004D\u0020\u0043\u004F\u004D\u004D\u0041\u004E\u0044\u0053\u003A",'\u0063\u006C\u0073':"success"},{'\u0074\u0065\u0078\u0074':"  LS          - List contents"},{"text":"  CD [DIR]    - Change directory (use 'CD ..' for back)"},{'\u0074\u0065\u0078\u0074':"  CAT [FILE]  - Read file contents"},{"text":"\u0020\u0020\u0044\u0045\u0043\u0052\u0059\u0050\u0054\u0020\u005B\u004B\u005D\u0020\u002D\u0020\u0055\u006E\u006C\u006F\u0063\u006B\u0020\u0065\u006E\u0063\u0072\u0079\u0070\u0074\u0065\u0064\u0020\u0073\u0069\u0067\u006E\u0061\u006C\u0073"},{"text":"  CLEAR       - Purge screen"}]);break;case"sl".split("").reverse().join(""):let _0x8dccc;let _0xc3d6g=_0x4b_0xg19['\u0064\u0069\u0072\u0073']['\u006D\u0061\u0070'](d=>`[${d['\u0074\u006F\u0055\u0070\u0070\u0065\u0072\u0043\u0061\u0073\u0065']()}]`)['\u0063\u006F\u006E\u0063\u0061\u0074'](Object['\u006B\u0065\u0079\u0073'](_0x4b_0xg19['\u0066\u0069\u006C\u0065\u0073']));_0x8dccc="hkapce".split("").reverse().join("");await printLines([{'\u0074\u0065\u0078\u0074':_0xc3d6g['\u006C\u0065\u006E\u0067\u0074\u0068']?_0xc3d6g['\u006A\u006F\u0069\u006E']("\u0020\u0020\u0020"):".ytpmE".split("").reverse().join("")}]);break;case"\u0063\u0064":if(arg==="\u002E\u002E"){currentDir="\u0072\u006F\u006F\u0074";}else if(_0x4b_0xg19['\u0064\u0069\u0072\u0073']['\u0069\u006E\u0063\u006C\u0075\u0064\u0065\u0073'](arg)){currentDir=arg;}else{await printLines([{"text":"ERROR: PATH_NOT_FOUND","cls":"\u0065\u0072\u0072\u006F\u0072"}]);}promptSpan['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=`${currentDir}>`;break;case"\u0063\u0061\u0074":if(_0x4b_0xg19['\u0066\u0069\u006C\u0065\u0073'][arg])await printLines([{"text":_0x4b_0xg19['\u0066\u0069\u006C\u0065\u0073'][arg]}]);else await printLines([{'\u0074\u0065\u0078\u0074':"\u0045\u0052\u0052\u004F\u0052\u003A\u0020\u0046\u0049\u004C\u0045\u005F\u004E\u004F\u0054\u005F\u0046\u004F\u0055\u004E\u0044",'\u0063\u006C\u0073':"error"}]);break;case"tpyrced".split("").reverse().join(""):if(window['\u0062\u0074\u006F\u0061'](arg)===_0xDATA['\u0070']){await printLines([{'\u0074\u0065\u0078\u0074':"\u0056\u0045\u0052\u0049\u0046\u0059\u0049\u004E\u0047\u0020\u0048\u0041\u0053\u0048\u002E\u002E\u002E","cls":"success"},{"text":" :DEREVOCER LANGIS".split("").reverse().join("")+window['\u0061\u0074\u006F\u0062'](_0xDATA['\u006B'])},{'\u0074\u0065\u0078\u0074':"\u0052\u0045\u0057\u0041\u0052\u0044\u0020\u0043\u0048\u0041\u004E\u004E\u0045\u004C\u003A\u0020"+window['\u0061\u0074\u006F\u0062'](_0xDATA['\u006D'])}]);}else{await printLines([{'\u0074\u0065\u0078\u0074':"\u0044\u0045\u0043\u0052\u0059\u0050\u0054\u0049\u004F\u004E\u0020\u0046\u0041\u0049\u004C\u0045\u0044\u002E\u0020\u0055\u004E\u0041\u0055\u0054\u0048\u004F\u0052\u0049\u005A\u0045\u0044\u0020\u0048\u0041\u0053\u0048\u002E","cls":"error"}]);}break;case"\u0063\u006C\u0065\u0061\u0072":output['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']='';break;default:await printLines([{'\u0074\u0065\u0078\u0074':"COMMAND_NOT_RECOGNIZED",'\u0063\u006C\u0073':"\u0065\u0072\u0072\u006F\u0072"}]);}}window['\u006F\u006E\u006C\u006F\u0061\u0064']=()=>{promptSpan['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']="\u004C\u004F\u0047\u0049\u004E\u003E";printLines([{"text":"\u002A\u002A\u002A\u0020\u0024\u0044\u004F\u004E\u0054\u0042\u0055\u0059\u0020\u004E\u004F\u0044\u0045\u0020\u0054\u0045\u0052\u004D\u0049\u004E\u0041\u004C\u0020\u002A\u002A\u002A",'\u0063\u006C\u0073':"\u0073\u0075\u0063\u0063\u0065\u0073\u0073"},{'\u0074\u0065\u0078\u0074':"\u0053\u0054\u0041\u0054\u0049\u004F\u004E\u0020\u0049\u0044\u003A\u0020\u0056\u004F\u0049\u0044\u005F\u004E\u004F\u0044\u0045\u005F\u0030\u0031"},{'\u0074\u0065\u0078\u0074':"\u0053\u0059\u0053\u0054\u0045\u004D\u0020\u0049\u0053\u0020\u004C\u004F\u0043\u004B\u0045\u0044\u002E\u0020\u0045\u004E\u0054\u0045\u0052\u0020\u0050\u0041\u0053\u0053\u0057\u004F\u0052\u0044\u003A"},{"text":"\u0020"}]);};document['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",()=>{if(!isPrinting)input['\u0066\u006F\u0063\u0075\u0073']();});
+/**
+ * $DONTBUY_SYSTEM CORE LOGIC
+ * PROTECTED ASSET
+ */
+
+// Encoded Values:
+// l: login password
+// p: 333 (Password)
+// k: VOID-777-ALPHA (Secret Key)
+// m: dontbuythis@proton.me (Contact)
+const _0xDATA = {
+    l: "dGhldm9pZGlzd2F0Y2hpbmd5b3U=", 
+    p: "MzMz", 
+    k: "Vk9JRC03NzctQUxQSEE=",
+    m: "ZG9udGJ1eXRoaXNAcHJvdG9uLm1l"
+};
+
+const output = document.getElementById('terminal');
+const input = document.getElementById('cmd');
+const promptSpan = document.getElementById('prompt');
+
+let currentDir = 'root';
+let isPrinting = false;
+let isAuthenticated = false; // System state: locked
+
+const fileSystem = {
+    'root': { 
+        dirs: ['files', 'logs', 'temp', 'vault', 'comms'], // Fixed: added comma after 'temp'
+        files: { 
+            'manifesto.txt': "THE VOID IS THE ONLY PERMANENT RECORD.",
+            'readme.txt': "TYPE 'HELP' TO BEGIN SYSTEM DIAGNOSTICS.",
+            'version.sys': "BUILD 2.0.4 - STABLE"
+        } 
+    },
+    'files': { 
+        dirs: ['common_files', 'wallets', 'snapshots'], // Fixed: removed spaces
+        files: { 
+            'session_01.log': "2026-03-16: SNAPSHOT SUCCESSFUL.",
+            'session_02.log': "2026-03-17: 333 NEW ENTRIES DETECTED.",
+            'error.log': "WARNING: NON-COMPLIANCE DETECTED IN SECTOR 7."
+        } 
+    },
+    // Added missing definitions for sub-folders in 'files'
+    'common_files': { dirs: [], files: { 'note.txt': "Public assets only." } },
+    'wallets': { dirs: [], files: { 'ledger.txt': "Empty." } },
+    'snapshots': { dirs: [], files: { 'backup.001': "Corruption detected." } },
+    
+    'logs': { 
+        dirs: [], 
+        files: { 
+            'session_01.log': "2026-03-16: SNAPSHOT SUCCESSFUL.",
+            'session_02.log': "2026-03-17: 333 NEW ENTRIES DETECTED.",
+            'error.log': "WARNING: NON-COMPLIANCE DETECTED IN SECTOR 7."
+        } 
+    },
+    'temp': { dirs: [], files: { 'cache.tmp': "System garbage." } }, // Added missing 'temp' folder
+    'vault': { 
+        dirs: ['restricted'], 
+        files: { 
+            'security_hint.txt': "THE TOTAL SUPPLY IS THE KEY.",
+            'access_log.txt': "LAST ACCESS: [REDACTED]"
+        } 
+    },
+    'restricted': {
+        dirs: [],
+        files: { 
+            'void_signal.enc': "ENCRYPTED. USE 'DECRYPT [KEY]'.",
+            'frequency.txt': "0.333MHz - OSCILLATION STABLE."
+        }
+    },
+    'comms': {
+        dirs: [],
+        files: {
+            'void_mail.txt': "dontbuythis@proton.me",
+            'broadcast.txt': "THE SIGNAL GROWS STRONGER."
+        }
+    }
+};
+
+async function printLines(lines) {
+    isPrinting = true;
+    input.disabled = true;
+    for (let line of lines) {
+        const div = document.createElement('div');
+        if (line.cls) div.className = line.cls;
+        div.textContent = line.text;
+        output.appendChild(div);
+        output.scrollTop = output.scrollHeight;
+        await new Promise(r => setTimeout(r, 10));
+    }
+    isPrinting = false;
+    input.disabled = false;
+    input.focus();
+}
+
+input.addEventListener('keydown', async (e) => {
+    // --- TAB AUTOCOMPLETE LOGIC ---
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        
+        // Disable autocomplete if not logged in
+        if (!isAuthenticated) return;
+
+        const val = input.value.trim();
+        const parts = val.split(' ');
+        const currentInput = parts[parts.length - 1].toLowerCase();
+        
+        if (!currentInput) return;
+
+        const fs = fileSystem[currentDir];
+        const pool = fs.dirs.concat(Object.keys(fs.files));
+        const matches = pool.filter(item => item.toLowerCase().startsWith(currentInput));
+
+        if (matches.length === 1) {
+            parts[parts.length - 1] = matches[0];
+            input.value = parts.join(' ');
+        } else if (matches.length > 1) {
+            const historyLine = document.createElement('div');
+            historyLine.className = 'cmd-line';
+            historyLine.textContent = `> ${matches.join('   ')}`;
+            output.appendChild(historyLine);
+            output.scrollTop = output.scrollHeight;
+        }
+        return;
+    }
+
+    // --- ENTER KEY LOGIC ---
+    if (e.key === 'Enter' && !isPrinting) {
+        const val = input.value.trim();
+        if (!val) return;
+        
+        // Log the command to terminal
+        const h = document.createElement('div');
+        h.className = 'cmd-line';
+        // For login, we hide the password in the history for safety
+        h.textContent = isAuthenticated ? `${promptSpan.textContent} ${val}` : `${promptSpan.textContent} ********`;
+        output.appendChild(h);
+        
+        const [cmd, ...args] = val.split(' ');
+        const arg = args.join(' ');
+
+        input.value = '';
+        await handleCommand(cmd.toLowerCase(), arg);
+    }
+});
+
+async function handleCommand(cmd, arg) {
+    // --- LOGIN GATE LOGIC ---
+    if (!isAuthenticated) {
+        if (window.btoa(cmd.toUpperCase()) === _0xDATA.l) {
+            isAuthenticated = true;
+            promptSpan.textContent = "root>";
+            await printLines([
+                {text: "ROOT ACCESS GRANTED.", cls: "success"},
+                {text: "AUTHENTICATION SUCCESSFUL. WELCOME, AUTHORIZED ENTITY."},
+                {text: "TYPE 'HELP' TO SEE AVAILABLE SYSTEM COMMANDS."},
+                {text: " "}
+            ]);
+        } else {
+            await printLines([{text: "INVALID PASSWORD. ATTEMPT LOGGED.", cls: "error"}]);
+            promptSpan.textContent = "LOGIN>";
+        }
+        return;
+    }
+
+    // --- MAIN SYSTEM LOGIC (Authenticated Only) ---
+    const fs = fileSystem[currentDir];
+    switch(cmd) {
+        case 'help':
+            await printLines([
+                {text: "SYSTEM COMMANDS:", cls: "success"},
+                {text: "  LS          - List contents"},
+                {text: "  CD [DIR]    - Change directory (use 'CD ..' for back)"},
+                {text: "  CAT [FILE]  - Read file contents"},
+                {text: "  DECRYPT [K] - Unlock encrypted signals"},
+                {text: "  CLEAR       - Purge screen"}
+            ]);
+            break;
+        case 'ls':
+            let items = fs.dirs.map(d => `[${d.toUpperCase()}]`).concat(Object.keys(fs.files));
+            await printLines([{text: items.length ? items.join('   ') : "Empty."}]);
+            break;
+        case 'cd':
+            if (arg === '..') {
+                currentDir = 'root';
+            } else if (fs.dirs.includes(arg)) {
+                currentDir = arg;
+            } else {
+                await printLines([{text: "ERROR: PATH_NOT_FOUND", cls: "error"}]);
+            }
+            promptSpan.textContent = `${currentDir}>`;
+            break;
+        case 'cat':
+            if (fs.files[arg]) await printLines([{text: fs.files[arg]}]);
+            else await printLines([{text: "ERROR: FILE_NOT_FOUND", cls: "error"}]);
+            break;
+        case 'decrypt':
+            if (window.btoa(arg) === _0xDATA.p) {
+                await printLines([
+                    {text: "VERIFYING HASH...", cls: "success"},
+                    {text: "SIGNAL RECOVERED: " + window.atob(_0xDATA.k)},
+                    {text: "REWARD CHANNEL: " + window.atob(_0xDATA.m)}
+                ]);
+            } else {
+                await printLines([{text: "DECRYPTION FAILED. UNAUTHORIZED HASH.", cls: "error"}]);
+            }
+            break;
+        case 'clear':
+            output.innerHTML = '';
+            break;
+        default:
+            await printLines([{text: "COMMAND_NOT_RECOGNIZED", cls: "error"}]);
+    }
+}
+
+window.onload = () => {
+    promptSpan.textContent = "LOGIN>"; 
+    printLines([
+        {text: "*** $DONTBUY NODE TERMINAL ***", cls: "success"},
+        {text: "STATION ID: VOID_NODE_01"},
+        {text: "SYSTEM IS LOCKED. ENTER PASSWORD:"},
+        {text: " "}
+    ]);
+};
+
+document.addEventListener('click', () => { if(!isPrinting) input.focus(); });

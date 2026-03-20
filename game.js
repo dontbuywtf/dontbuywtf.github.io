@@ -80,7 +80,7 @@ function buildLevel(num) {
             if (eType < 0.5) {
                 // --- MAXI ENEMY SCALING ---
                 // Speed starts at -2 and adds -0.8 per level (Level 10 speed = -10)
-                let maxiSpeed = -2 - (num * 0.8); 
+                let maxiSpeed = -1 - (num * 0.8); 
                 // Range increases so they patrol more of the platform
                 let maxiRange = 60 + (num * 15); 
                 
@@ -95,7 +95,7 @@ function buildLevel(num) {
             } else {
                 // --- MEV BOT SCALING ---
                 // MEV Bots are faster: Starts at -4 and adds -1.2 per level (Level 10 speed = -16!)
-                let botSpeed = -4 - (num * 1.2);
+                let botSpeed = -2 - (num * 1.2);
                 let botRange = 100 + (num * 20);
 
                 enemies.push({ 

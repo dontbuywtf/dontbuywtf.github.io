@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 // --- GAME STATE & CONFIG ---
 let gameState = 'MENU';
 let currentLevel = 1;
+let lives = 3; // Added Lives
 let score = { dontbuy: 0, xrp: 0, fuzzy: 0 };
 let cameraX = 0;
 let keys = {};
@@ -19,7 +20,7 @@ let player, platforms, tokens, enemies, goal, worldWidth;
 const xrpLore = [
     "AMM_ENABLED", 
     "XRP > BTC", 
-    "GARY SUCKS",, 
+    "GARY SUCKS",
     "RLUSD_STABLE", 
     "FLIP_BTC", 
     "NO_ESCROW", 
@@ -63,7 +64,7 @@ function buildLevel(num) {
 
     for (let i = 400; i < worldWidth - 500; i += 250) {
         let py = 150 + Math.random() * 150;
-        platforms.push({ x: i, y: py, w: 160, h: 20 }); // Slightly wider for lore text
+        platforms.push({ x: i, y: py, w: 160, h: 20 }); 
         
         let rand = Math.random();
         let type = rand > 0.7 ? 'xrp' : (rand > 0.4 ? 'dontbuy' : 'fuzzy');
@@ -82,39 +83,27 @@ function buildLevel(num) {
 
 function drawPlatform(ctx, p) {
     ctx.save();
-    
-    // 1. Draw the Base Block
     ctx.fillStyle = "#0a0a0a";
     ctx.fillRect(p.x, p.y, p.w, p.h);
-    
-    // 2. CREATE CLIPPING MASK
-    // This prevents text from "getting out of the blocks"
     ctx.beginPath();
     ctx.rect(p.x + 2, p.y + 2, p.w - 4, p.h - 4);
     ctx.clip();
-
-    // 3. Draw the Lore Text (Safe inside the mask)
     ctx.fillStyle = "rgba(0, 255, 65, 0.4)";
     ctx.font = "bold 10px 'Courier New'";
     
-    // Logic: If the platform is small, just center one phrase. 
-    // If it's long (like the floor), tile it.
     if (p.w < 200) {
         let txt = xrpLore[Math.floor((p.x) % xrpLore.length)];
         ctx.textAlign = "center";
         ctx.fillText(txt, p.x + p.w / 2, p.y + 13);
     } else {
         ctx.textAlign = "left";
-        let step = 100; // Wider step for longer phrases
+        let step = 100; 
         for (let x = 10; x < p.w; x += step) {
             let txt = xrpLore[Math.floor((p.x + x) % xrpLore.length)];
             ctx.fillText(txt, p.x + x, p.y + 13);
         }
     }
-    
-    ctx.restore(); // Removes the clip for the rest of the drawing
-
-    // 4. Draw Glowing Border (Outside the clip so it stays sharp)
+    ctx.restore(); 
     ctx.save();
     ctx.strokeStyle = "#00ff41";
     ctx.lineWidth = 1;
@@ -131,13 +120,11 @@ function drawFlag(ctx, g) {
     ctx.lineWidth = 4;
     ctx.shadowBlur = 10; ctx.shadowColor = "#00ff41";
     ctx.beginPath(); ctx.moveTo(cx, bottomY); ctx.lineTo(cx, topY); ctx.stroke();
-
     let wave = Math.sin(Date.now() / 200) * 10;
     ctx.fillStyle = "#ff00ff"; ctx.shadowColor = "#ff00ff";
     ctx.beginPath();
     ctx.moveTo(cx, topY); ctx.lineTo(cx + 65, topY + 20 + wave); ctx.lineTo(cx, topY + 45);
     ctx.closePath(); ctx.fill();
-
     ctx.fillStyle = "#fff"; ctx.font = "bold 14px Arial";
     ctx.fillText("X", cx + 12, topY + 28 + (wave/2));
     ctx.restore();
@@ -206,7 +193,11 @@ function drawMEVBot(ctx, en) {
 // --- CORE GAME LOOP ---
 function startGame() {
     playMusic();
-    if (gameState === 'GAMEOVER') { currentLevel = 1; score = { dontbuy: 0, xrp: 0, fuzzy: 0 }; }
+    if (gameState === 'GAMEOVER') { 
+        currentLevel = 1; 
+        lives = 3; // Reset lives on hard reset
+        score = { dontbuy: 0, xrp: 0, fuzzy: 0 }; 
+    }
     document.querySelectorAll('.overlay').forEach(el => el.classList.add('hidden'));
     gameState = 'PLAYING';
     buildLevel(currentLevel);
@@ -217,9 +208,17 @@ function startGame() {
 function nextLevel() { currentLevel++; startGame(); }
 
 function die(msg) {
-    gameState = 'GAMEOVER';
-    document.getElementById('screen-gameover').classList.remove('hidden');
-    document.getElementById('death-msg').innerText = msg;
+    lives--; // Lose a life
+    updateUI();
+    
+    if (lives <= 0) {
+        gameState = 'GAMEOVER';
+        document.getElementById('screen-gameover').classList.remove('hidden');
+        document.getElementById('death-msg').innerText = "FATAL_ERROR: " + msg;
+    } else {
+        // Soft reset: just restart the current level
+        buildLevel(currentLevel);
+    }
 }
 
 function win() {
@@ -238,6 +237,9 @@ function updateUI() {
     document.getElementById('xrp_score').innerText = score.xrp;
     document.getElementById('fz_score').innerText = score.fuzzy;
     document.getElementById('lvl_num').innerText = currentLevel;
+    // Update the lives in the HUD
+    const livesDisplay = document.getElementById('lives_count');
+    if(livesDisplay) livesDisplay.innerText = lives;
 }
 
 window.onkeydown = e => {

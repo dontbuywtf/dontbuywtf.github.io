@@ -89,7 +89,7 @@ function drawPlatform(ctx, p) {
     ctx.rect(p.x + 2, p.y + 2, p.w - 4, p.h - 4);
     ctx.clip();
     ctx.fillStyle = "rgba(0, 255, 65, 0.4)";
-    ctx.font = "bold 10px 'Courier New'";
+    ctx.font = "bold 10px 'monospace'";
     
     if (p.w < 200) {
         let txt = xrpLore[Math.floor((p.x) % xrpLore.length)];
@@ -105,7 +105,7 @@ function drawPlatform(ctx, p) {
     }
     ctx.restore(); 
     ctx.save();
-    ctx.strokeStyle = "#00ff41";
+    ctx.strokeStyle = "#32e685";
     ctx.lineWidth = 1;
     ctx.strokeRect(p.x, p.y, p.w, p.h);
     ctx.restore();
@@ -116,12 +116,12 @@ function drawFlag(ctx, g) {
     let cx = g.x + 20;
     let bottomY = 360;
     let topY = 200;
-    ctx.strokeStyle = "#00ff41";
+    ctx.strokeStyle = "#32e685";
     ctx.lineWidth = 4;
-    ctx.shadowBlur = 10; ctx.shadowColor = "#00ff41";
+    ctx.shadowBlur = 10; ctx.shadowColor = "#32e685";
     ctx.beginPath(); ctx.moveTo(cx, bottomY); ctx.lineTo(cx, topY); ctx.stroke();
     let wave = Math.sin(Date.now() / 200) * 10;
-    ctx.fillStyle = "#ff00ff"; ctx.shadowColor = "#ff00ff";
+    ctx.fillStyle = "#ff198b"; ctx.shadowColor = "#ff198b";
     ctx.beginPath();
     ctx.moveTo(cx, topY); ctx.lineTo(cx + 65, topY + 20 + wave); ctx.lineTo(cx, topY + 45);
     ctx.closePath(); ctx.fill();
@@ -133,7 +133,7 @@ function drawFlag(ctx, g) {
 function drawPlayer(ctx, p) {
     ctx.save();
     ctx.shadowBlur = 15; ctx.shadowColor = "#00ff41";
-    ctx.fillStyle = "#00ff41";
+    ctx.fillStyle = "#32e685";
     ctx.beginPath();
     ctx.moveTo(p.x + p.w / 2, p.y);
     ctx.bezierCurveTo(p.x, p.y, p.x, p.y + p.h, p.x, p.y + p.h);
@@ -141,7 +141,7 @@ function drawPlayer(ctx, p) {
     ctx.bezierCurveTo(p.x + p.w, p.y + p.h, p.x + p.w, p.y, p.x + p.w / 2, p.y);
     ctx.fill();
     ctx.shadowBlur = 0; ctx.fillStyle = "#000"; ctx.fillRect(p.x + 4, p.y + 10, p.w - 8, 10);
-    ctx.fillStyle = "#00ff41"; ctx.font = "bold 8px monospace";
+    ctx.fillStyle = "#32e685"; ctx.font = "bold 8px monospace";
     ctx.fillText(Math.random() > 0.5 ? "1" : "0", p.x + 6, p.y + 18);
     ctx.fillText(Math.random() > 0.5 ? "0" : "1", p.x + 15, p.y + 18);
     ctx.restore();
@@ -153,11 +153,11 @@ function drawToken(ctx, t) {
     ctx.shadowBlur = 12;
     let label = "";
     if (t.type === 'dontbuy') {
-        label = "$dontbuy"; ctx.fillStyle = "#00ff41"; ctx.shadowColor = "#00ff41";
+        label = "$dontbuy"; ctx.fillStyle = "#32e685"; ctx.shadowColor = "#32e685";
     } else if (t.type === 'xrp') {
-        label = "$XRP"; ctx.fillStyle = "#3498db"; ctx.shadowColor = "#3498db";
+        label = "$XRP"; ctx.fillStyle = "#19a3ff"; ctx.shadowColor = "#19a3ff";
     } else {
-        label = "$FUZZY"; ctx.fillStyle = "#ff00ff"; ctx.shadowColor = "#ff00ff";
+        label = "$FUZZY"; ctx.fillStyle = "#ff198b"; ctx.shadowColor = "#ff198b";
     }
     let floatY = Math.sin(Date.now() / 200) * 5;
     ctx.fillText(label, t.x, t.y + floatY);

@@ -223,12 +223,42 @@ function die(msg) {
 
 function win() {
     gameState = 'WIN';
-    document.getElementById('screen-win').classList.remove('hidden');
+    const winScreen = document.getElementById('screen-win');
+    const rewardContainer = document.getElementById('dynamic-reward-container');
+    const nextBtn = document.getElementById('next-btn');
+    
+    winScreen.classList.remove('hidden');
+    
     if (currentLevel === 10) {
-        document.getElementById('win-title').innerText = "VOID DEFEATED";
-        document.getElementById('win-msg').innerText = "FINAL NODE SECURED.";
-        document.getElementById('reward-box').classList.remove('hidden');
-        document.getElementById('next-btn').classList.add('hidden');
+        // 1. Hide the "Next" button since there are no more levels
+        nextBtn.classList.add('hidden');
+
+        // 2. Change the headers for the finale
+        document.getElementById('win-title').innerText = "SYSTEM_HIJACK_COMPLETE";
+        document.getElementById('win-msg').innerText = "VOID_NODE_DECRYPTED";
+
+        // 3. Obfuscate the Key and Email
+        // These are Base64 encoded strings. They look like gibberish in your .js file.
+        const k = "Vk9JRC1LRVktNTg5NTg5NTg5"; // "VOID-KEY-589589589"
+        const e = "ZG9udGJ1eXRoaXNAcHJvdG9uLm1l"; // "dontbuythis@proton.me"
+
+        // 4. Inject the reward only NOW
+        rewardContainer.innerHTML = `
+            <div style="margin-top:20px; border: 1px dashed #00ff41; padding: 20px; background: rgba(0,255,65,0.1);">
+                <p style="color:#fff; margin-bottom:10px;">YOU DEFEATED THE VOID.</p>
+                <p style="font-size:0.8rem; color:#008f11;">SEND THE KEY BELOW TO CLAIM YOUR REWARD:</p>
+                <div style="background:#000; padding:10px; font-size:1.4rem; letter-spacing:3px; border:1px solid #00ff41; color:#00ff41;">
+                    ${atob(k)}
+                </div>
+                <p style="margin-top:15px; font-size:0.9rem;">TARGET: ${atob(e)}</p>
+            </div>
+        `;
+    } else {
+        // Standard level win reset
+        rewardContainer.innerHTML = "";
+        nextBtn.classList.remove('hidden');
+        document.getElementById('win-title').innerText = "LAYER_DECRYPTED";
+        document.getElementById('win-msg').innerText = "DATA UPLOADED SUCCESSFULLY";
     }
 }
 

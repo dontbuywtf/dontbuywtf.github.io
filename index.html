@@ -16,6 +16,44 @@
     a { color: #000; text-decoration: none; }
     a:hover { text-decoration: underline; }
   </style>
+  <style>
+        /* This container is the "Block" for your homepage */
+        #game-block {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            margin: 20px auto;
+            background: #000;
+            border: 3px solid #32e685;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            font-family: monospace;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        canvas { display: block; background: #000; }
+
+        /* UI Overlays */
+        .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            z-index: 10; color: #32e685;
+        }
+        .hidden { display: none !important; }
+        
+        button { 
+            background: transparent; color: #32e685; border: 2px solid #32e685;
+            padding: 12px 24px; font-family: inherit; font-size: 1.1rem; cursor: pointer;
+            margin-top: 20px; text-transform: uppercase; transition: 0.3s;
+        }
+        button:hover { background: #32e685; color: #000; }
+        
+        .hud { position: absolute; top: 10px; left: 10px; font-size: 0.8rem; pointer-events: none; z-index: 5; color: #32e685; }
+        .level-tag { position: absolute; top: 10px; right: 10px; font-size: 1rem; color: #3498db; }
+        
+        .reward-text { color: #fff; font-weight: bold; border: 1px dashed #32e685; padding: 10px; margin-top: 15px; background: rgba(0,255,65,0.1); }
+    </style>
 </head>
 <body>
   <h1>
@@ -24,6 +62,44 @@
   </a>
 </h1>
   <h2>333M SUPPLY - 100% BURNED LP</h2>
+
+<div id="game-block">
+        <div class="hud">
+    SYSTEM_STATUS: <span id="status">ACTIVE</span> | ADDR: <span id="addr">0x000</span><br>
+    $DONTBUY <span id="db_score">0</span> | $XRP: <span id="xrp_score">0</span> | 
+    <span style="color:#ff00ff">$FUZZY</span>: <span id="fz_score">0</span>
+</div>
+        <div class="level-tag">LAYER: <span id="lvl_num">1</span>/10</div>
+
+        <div id="screen-welcome" class="overlay">
+            <h1 style="font-size: 2.5rem; margin: 0;">TERMINAL_ADVANCE</h1>
+            <p>CRACK THE LAYERS. COLLECT ASSETS. DEFEAT THE VOID.</p>
+            <button onclick="startGame()">Initialize Hack</button>
+        </div>
+
+        <div id="screen-gameover" class="overlay hidden">
+            <h1 style="color: #ff0033;">CONNECTION_RESET</h1>
+            <p id="death-msg">REJECTED BY THE BLOCKCHAIN</p>
+            <button onclick="startGame()">Re-Login</button>
+        </div>
+
+        <div id="screen-win" class="overlay hidden">
+            <h1 id="win-title">LAYER_DECRYPTED</h1>
+            <p id="win-msg">DATA UPLOADED SUCCESSFULLY</p>
+            <div id="reward-box" class="hidden">
+                <p class="reward-text">You've defeated the void - send <br> 
+                   <span style="color:#32e685">VOID-KEY-589589589</span> <br> 
+                   to dontbuythis@proton.me to claim your reward</p>
+            </div>
+            <button id="next-btn" onclick="nextLevel()">Continue Hack</button>
+        </div>
+
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+    </div>
+
+    <script src="game.js"></script>
+
+
   <p style="margin-top: 3rem;">
     <a href="https://dontbuy.wtf/manifesto/"
        style="display: inline-block; min-width:300px; padding: 1rem 2rem; background: #000000; color: #ffffff; font-family: monospace; font-size: 1.4rem; text-decoration: none; border: 2px solid #000000; transition: all 0.2s;">

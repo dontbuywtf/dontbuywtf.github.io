@@ -238,9 +238,9 @@ function win() {
         document.getElementById('win-msg').innerText = "VOID_NODE_DECRYPTED";
 
         // 3. Obfuscate the Key and Email
-        // These are Base64 encoded strings. They look like gibberish in your .js file.
-        const k = "Vk9JRC1LRVktNTg5NTg5NTg5"; // "VOID-KEY-589589589"
-        const e = "ZG9udGJ1eXRoaXNAcHJvdG9uLm1l"; // "dontbuythis@proton.me"
+      
+        const k = "Vk9JRC1LRVktNTg5NTg5NTg5"; // 
+        const e = "ZG9udGJ1eXRoaXNAcHJvdG9uLm1l"; // 
 
         // 4. Inject the reward only NOW
         rewardContainer.innerHTML = `

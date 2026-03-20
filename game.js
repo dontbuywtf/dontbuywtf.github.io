@@ -15,6 +15,22 @@ const SPEED = 5;
 
 let player, platforms, tokens, enemies, goal, worldWidth;
 
+// --- XRP LORE SNIPPETS ---
+const xrpLore = [
+    "GARY SUCKS", 
+    "XRP > BTC", 
+    "AMM_ENABLED", 
+    "RLUSD_STABLE", 
+    "XRPL_PROMPT", 
+    "NO_ESCROW", 
+    "THE_LEDGER", 
+    "LIQUIDITY", 
+    "F_THE_SEC", 
+    "FLIP_BTC", 
+    "ISO_20022",
+    "BRAD_G"
+];
+
 // --- 8-BIT MUSIC GENERATOR ---
 function playMusic() {
     if (audioCtx) return;
@@ -47,28 +63,89 @@ function buildLevel(num) {
 
     for (let i = 400; i < worldWidth - 500; i += 250) {
         let py = 150 + Math.random() * 150;
-        platforms.push({ x: i, y: py, w: 150, h: 15 });
+        platforms.push({ x: i, y: py, w: 160, h: 20 }); // Slightly wider for lore text
         
-        // Randomly pick between 3 token types
         let rand = Math.random();
         let type = rand > 0.7 ? 'xrp' : (rand > 0.4 ? 'dontbuy' : 'fuzzy');
         tokens.push({ x: i + 50, y: py - 40, type: type, collected: false });
 
         if (Math.random() < 0.2 + (num * 0.08)) {
             let eType = Math.random();
-            if (eType < 0.5) enemies.push({ x: i + 20, y: py - 30, w: 30, h: 25, vx: -2 - (num/3), range: 100, startX: i+20, type: 'maxi', label: "HODL" });
-            else enemies.push({ x: i, y: py - 80, w: 25, h: 25, vx: -4, range: 150, startX: i, type: 'bot', label: "MEV" });
+            if (eType < 0.5) enemies.push({ x: i + 20, y: py - 35, w: 30, h: 25, vx: -2 - (num/3), range: 100, startX: i+20, type: 'maxi', label: "HODL" });
+            else enemies.push({ x: i, y: py - 85, w: 25, h: 25, vx: -4, range: 150, startX: i, type: 'bot', label: "MEV" });
         }
     }
-    goal = { x: worldWidth - 200, y: 150, w: 120, h: 210 };
+    goal = { x: worldWidth - 250, y: 150, w: 100, h: 210 };
 }
 
 // --- DRAWING FUNCTIONS ---
 
+function drawPlatform(ctx, p) {
+    ctx.save();
+    
+    // 1. Draw the Base Block
+    ctx.fillStyle = "#0a0a0a";
+    ctx.fillRect(p.x, p.y, p.w, p.h);
+    
+    // 2. CREATE CLIPPING MASK
+    // This prevents text from "getting out of the blocks"
+    ctx.beginPath();
+    ctx.rect(p.x + 2, p.y + 2, p.w - 4, p.h - 4);
+    ctx.clip();
+
+    // 3. Draw the Lore Text (Safe inside the mask)
+    ctx.fillStyle = "rgba(0, 255, 65, 0.4)";
+    ctx.font = "bold 10px 'Courier New'";
+    
+    // Logic: If the platform is small, just center one phrase. 
+    // If it's long (like the floor), tile it.
+    if (p.w < 200) {
+        let txt = xrpLore[Math.floor((p.x) % xrpLore.length)];
+        ctx.textAlign = "center";
+        ctx.fillText(txt, p.x + p.w / 2, p.y + 13);
+    } else {
+        ctx.textAlign = "left";
+        let step = 100; // Wider step for longer phrases
+        for (let x = 10; x < p.w; x += step) {
+            let txt = xrpLore[Math.floor((p.x + x) % xrpLore.length)];
+            ctx.fillText(txt, p.x + x, p.y + 13);
+        }
+    }
+    
+    ctx.restore(); // Removes the clip for the rest of the drawing
+
+    // 4. Draw Glowing Border (Outside the clip so it stays sharp)
+    ctx.save();
+    ctx.strokeStyle = "#00ff41";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(p.x, p.y, p.w, p.h);
+    ctx.restore();
+}
+
+function drawFlag(ctx, g) {
+    ctx.save();
+    let cx = g.x + 20;
+    let bottomY = 360;
+    let topY = 200;
+    ctx.strokeStyle = "#00ff41";
+    ctx.lineWidth = 4;
+    ctx.shadowBlur = 10; ctx.shadowColor = "#00ff41";
+    ctx.beginPath(); ctx.moveTo(cx, bottomY); ctx.lineTo(cx, topY); ctx.stroke();
+
+    let wave = Math.sin(Date.now() / 200) * 10;
+    ctx.fillStyle = "#ff00ff"; ctx.shadowColor = "#ff00ff";
+    ctx.beginPath();
+    ctx.moveTo(cx, topY); ctx.lineTo(cx + 65, topY + 20 + wave); ctx.lineTo(cx, topY + 45);
+    ctx.closePath(); ctx.fill();
+
+    ctx.fillStyle = "#fff"; ctx.font = "bold 14px Arial";
+    ctx.fillText("X", cx + 12, topY + 28 + (wave/2));
+    ctx.restore();
+}
+
 function drawPlayer(ctx, p) {
     ctx.save();
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = "#00ff41";
+    ctx.shadowBlur = 15; ctx.shadowColor = "#00ff41";
     ctx.fillStyle = "#00ff41";
     ctx.beginPath();
     ctx.moveTo(p.x + p.w / 2, p.y);
@@ -76,11 +153,8 @@ function drawPlayer(ctx, p) {
     ctx.lineTo(p.x + p.w, p.y + p.h);
     ctx.bezierCurveTo(p.x + p.w, p.y + p.h, p.x + p.w, p.y, p.x + p.w / 2, p.y);
     ctx.fill();
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = "#000";
-    ctx.fillRect(p.x + 4, p.y + 10, p.w - 8, 10);
-    ctx.fillStyle = "#00ff41";
-    ctx.font = "bold 8px monospace";
+    ctx.shadowBlur = 0; ctx.fillStyle = "#000"; ctx.fillRect(p.x + 4, p.y + 10, p.w - 8, 10);
+    ctx.fillStyle = "#00ff41"; ctx.font = "bold 8px monospace";
     ctx.fillText(Math.random() > 0.5 ? "1" : "0", p.x + 6, p.y + 18);
     ctx.fillText(Math.random() > 0.5 ? "0" : "1", p.x + 15, p.y + 18);
     ctx.restore();
@@ -88,26 +162,16 @@ function drawPlayer(ctx, p) {
 
 function drawToken(ctx, t) {
     ctx.save();
-    // Professional typography with neon glow
-    ctx.font = "bold 20px 'Courier New'"; // Bigger Typo
+    ctx.font = "bold 19px 'Courier New'";
     ctx.shadowBlur = 12;
-    
     let label = "";
     if (t.type === 'dontbuy') {
-        label = "$dontbuy";
-        ctx.fillStyle = "#00ff41";
-        ctx.shadowColor = "#00ff41";
+        label = "$dontbuy"; ctx.fillStyle = "#00ff41"; ctx.shadowColor = "#00ff41";
     } else if (t.type === 'xrp') {
-        label = "$XRP";
-        ctx.fillStyle = "#3498db";
-        ctx.shadowColor = "#3498db";
+        label = "$XRP"; ctx.fillStyle = "#3498db"; ctx.shadowColor = "#3498db";
     } else {
-        label = "$FUZZY";
-        ctx.fillStyle = "#ff00ff"; // Neon Pink/Purple
-        ctx.shadowColor = "#ff00ff";
+        label = "$FUZZY"; ctx.fillStyle = "#ff00ff"; ctx.shadowColor = "#ff00ff";
     }
-    
-    // Add a slight "float" animation
     let floatY = Math.sin(Date.now() / 200) * 5;
     ctx.fillText(label, t.x, t.y + floatY);
     ctx.restore();
@@ -115,53 +179,34 @@ function drawToken(ctx, t) {
 
 function drawMaxiEnemy(ctx, en) {
     ctx.save();
-    let cx = en.x + en.w/2;
-    let cy = en.y + en.h/2;
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = "red";
+    let cx = en.x + en.w/2; let cy = en.y + en.h/2;
+    ctx.shadowBlur = 15; ctx.shadowColor = "red";
     let grad = ctx.createLinearGradient(en.x, en.y, en.x, en.y + en.h);
-    grad.addColorStop(0, "#f1c40f");
-    grad.addColorStop(1, "#f7931a");
+    grad.addColorStop(0, "#f1c40f"); grad.addColorStop(1, "#f7931a");
     ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(cx, cy, en.h/2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = "#fff";
-    ctx.font = "bold 16px serif";
-    ctx.fillText("₿", cx - 6, cy + 6);
-    ctx.strokeStyle = "red";
-    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(cx, cy, en.h/2, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = "#fff"; ctx.font = "bold 16px serif"; ctx.fillText("₿", cx - 6, cy + 6);
+    ctx.strokeStyle = "red"; ctx.lineWidth = 2;
     let laserDir = en.vx > 0 ? 50 : -50;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy - 2);
-    ctx.lineTo(cx + laserDir, cy - 2 + (Math.random()*4-2));
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy - 2); ctx.lineTo(cx + laserDir, cy - 2 + (Math.random()*4-2)); ctx.stroke();
     ctx.restore();
 }
 
 function drawMEVBot(ctx, en) {
     ctx.save();
     let hover = Math.sin(Date.now() / 150) * 3;
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = "#9b59b6";
+    ctx.shadowBlur = 10; ctx.shadowColor = "#9b59b6";
     ctx.fillStyle = "#2c3e50";
-    ctx.beginPath();
-    ctx.arc(en.x + en.w/2, en.y + hover + en.h/2, en.w/2, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.beginPath(); ctx.arc(en.x + en.w/2, en.y + hover + en.h/2, en.w/2, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = "#3498db";
-    ctx.beginPath();
-    ctx.arc(en.x + en.w/2, en.y + hover + en.h/2, 4, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.beginPath(); ctx.arc(en.x + en.w/2, en.y + hover + en.h/2, 4, 0, Math.PI * 2); ctx.fill();
     ctx.restore();
 }
 
 // --- CORE GAME LOOP ---
 function startGame() {
     playMusic();
-    if (gameState === 'GAMEOVER') {
-        currentLevel = 1;
-        score = { dontbuy: 0, xrp: 0, fuzzy: 0 };
-    }
+    if (gameState === 'GAMEOVER') { currentLevel = 1; score = { dontbuy: 0, xrp: 0, fuzzy: 0 }; }
     document.querySelectorAll('.overlay').forEach(el => el.classList.add('hidden'));
     gameState = 'PLAYING';
     buildLevel(currentLevel);
@@ -205,17 +250,13 @@ window.onkeyup = e => keys[e.code] = false;
 
 function update() {
     if (gameState !== 'PLAYING') return;
-
     if (keys['ArrowRight']) player.vx = SPEED;
     else if (keys['ArrowLeft']) player.vx = -SPEED;
     else player.vx = 0;
-
     player.vy += GRAVITY; player.x += player.vx; player.y += player.vy;
-
     cameraX = player.x - 250;
     if (cameraX < 0) cameraX = 0;
     if (cameraX > worldWidth - canvas.width) cameraX = worldWidth - canvas.width;
-
     player.grounded = false;
     platforms.forEach(p => {
         if (player.x < p.x + p.w && player.x + player.w > p.x &&
@@ -223,7 +264,6 @@ function update() {
             player.grounded = true; player.jumpsLeft = 2; player.vy = 0; player.y = p.y - player.h;
         }
     });
-
     enemies.forEach(en => {
         en.x += en.vx;
         if (Math.abs(en.x - en.startX) > en.range) en.vx *= -1;
@@ -232,17 +272,13 @@ function update() {
             else die("ACCESS DENIED: " + en.label);
         }
     });
-
     tokens.forEach(t => {
-        // Larger hitbox for the text
         if (!t.collected && player.x < t.x + 80 && player.x + player.w > t.x && player.y < t.y + 20 && player.y + player.h > t.y) {
             t.collected = true; score[t.type]++; updateUI();
         }
     });
-
     if (player.y > canvas.height) die("LOST IN THE MEMPOOL.");
     if (player.x > goal.x) win();
-
     document.getElementById('addr').innerText = "0x" + Math.floor(player.x).toString(16).toUpperCase();
     draw();
     requestAnimationFrame(update);
@@ -251,24 +287,13 @@ function update() {
 function draw() {
     ctx.fillStyle = "#000"; ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.save(); ctx.translate(-cameraX, 0);
-
-    ctx.strokeStyle = "#00ff41"; ctx.lineWidth = 3; ctx.strokeRect(goal.x, goal.y, goal.w, goal.h);
-    
-    platforms.forEach(p => {
-        ctx.fillStyle = "#0a0a0a";
-        ctx.fillRect(p.x, p.y, p.w, p.h);
-        ctx.strokeStyle = "#00ff41";
-        ctx.lineWidth = 1;
-        ctx.strokeRect(p.x, p.y, p.w, p.h);
-    });
-
+    drawFlag(ctx, goal);
+    platforms.forEach(p => drawPlatform(ctx, p));
     tokens.forEach(t => { if (!t.collected) drawToken(ctx, t); });
-
     enemies.forEach(en => {
         if (en.type === 'maxi') drawMaxiEnemy(ctx, en);
         else drawMEVBot(ctx, en);
     });
-
     drawPlayer(ctx, player);
     ctx.restore();
 }

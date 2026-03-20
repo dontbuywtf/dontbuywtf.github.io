@@ -55,11 +55,14 @@ function playMusic() {
 }
 
 // --- LEVEL GENERATOR ---
+// --- UPDATED LEVEL GENERATOR WITH PROGRESSIVE DIFFICULTY ---
 function buildLevel(num) {
+    // Increase world size slightly as levels progress
     worldWidth = 3000 + (num * 1000);
     player = { x: 100, y: 100, w: 25, h: 35, vx: 0, vy: 0, grounded: false, jumpsLeft: 2 };
     platforms = []; tokens = []; enemies = [];
     
+    // Base floor platforms
     for (let i = 0; i < worldWidth; i += 800) platforms.push({ x: i, y: 360, w: 600, h: 40 });
 
     for (let i = 400; i < worldWidth - 500; i += 250) {
@@ -70,10 +73,40 @@ function buildLevel(num) {
         let type = rand > 0.7 ? 'xrp' : (rand > 0.4 ? 'dontbuy' : 'fuzzy');
         tokens.push({ x: i + 50, y: py - 40, type: type, collected: false });
 
+        // Enemy Spawn Chance: Increases as level (num) goes up
         if (Math.random() < 0.2 + (num * 0.08)) {
             let eType = Math.random();
-            if (eType < 0.5) enemies.push({ x: i + 20, y: py - 35, w: 30, h: 25, vx: -2 - (num/3), range: 100, startX: i+20, type: 'maxi', label: "HODL" });
-            else enemies.push({ x: i, y: py - 85, w: 25, h: 25, vx: -4, range: 150, startX: i, type: 'bot', label: "MEV" });
+            
+            if (eType < 0.5) {
+                // --- MAXI ENEMY SCALING ---
+                // Speed starts at -2 and adds -0.8 per level (Level 10 speed = -10)
+                let maxiSpeed = -2 - (num * 0.8); 
+                // Range increases so they patrol more of the platform
+                let maxiRange = 60 + (num * 15); 
+                
+                enemies.push({ 
+                    x: i + 20, y: py - 35, w: 30, h: 25, 
+                    vx: maxiSpeed, 
+                    range: maxiRange, 
+                    startX: i + 20, 
+                    type: 'maxi', 
+                    label: "HODL" 
+                });
+            } else {
+                // --- MEV BOT SCALING ---
+                // MEV Bots are faster: Starts at -4 and adds -1.2 per level (Level 10 speed = -16!)
+                let botSpeed = -4 - (num * 1.2);
+                let botRange = 100 + (num * 20);
+
+                enemies.push({ 
+                    x: i, y: py - 85, w: 25, h: 25, 
+                    vx: botSpeed, 
+                    range: botRange, 
+                    startX: i, 
+                    type: 'bot', 
+                    label: "MEV" 
+                });
+            }
         }
     }
     goal = { x: worldWidth - 250, y: 150, w: 100, h: 210 };

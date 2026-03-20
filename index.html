@@ -64,43 +64,39 @@
   <h2>333M SUPPLY - 100% BURNED LP</h2>
 
 <div id="game-block">
-        <div class="hud">
-    SYSTEM_STATUS: <span id="status">ACTIVE</span> | ADDR: <span id="addr">0x000</span><br>
-    $DONTBUY <span id="db_score">0</span> | $XRP: <span id="xrp_score">0</span> | 
-    <span style="color:#ff00ff">$FUZZY</span>: <span id="fz_score">0</span>
-</div>
-        <div class="level-tag">LAYER: <span id="lvl_num">1</span>/10</div>
-
-        <div id="screen-welcome" class="overlay">
-            <h1 style="font-size: 2.5rem; margin: 0;">VOID BOUNTY</h1>
-            <p>CRACK THE LAYERS. COLLECT ASSETS. DEFEAT THE VOID.</p>
-            <button onclick="startGame()">PLAY</button>
-        </div>
-
-        <div id="screen-gameover" class="overlay hidden">
-            <h1 style="color: #ff0033;">YOU SUCK LIKE GARY</h1>
-            <p id="death-msg">GAME OVER</p>
-            <button onclick="startGame()">Re-Login</button>
-        </div>
-
-        <div id="screen-win" class="overlay hidden">
-    <h1 id="win-title">LAYER_DECRYPTED</h1>
-    <p id="win-msg">DATA UPLOADED SUCCESSFULLY</p>
-    
-    <div id="dynamic-reward-container"></div>
-    
-    <button id="next-btn" onclick="nextLevel()">Continue Hack</button>
-</div>
-    
-    <button id="next-btn" onclick="nextLevel()">Continue Hack</button>
-</div>
-            <button id="next-btn" onclick="nextLevel()">NEXT LEVEL</button>
-        </div>
-
-        <canvas id="gameCanvas" width="800" height="400"></canvas>
+    <div class="hud">
+        LIVES: <span id="lives_count">3</span> | ADDR: <span id="addr">0x000</span><br>
+        $dontbuy: <span id="db_score">0</span> | $XRP: <span id="xrp_score">0</span> | 
+        <span style="color:#ff00ff">$FUZZY</span>: <span id="fz_score">0</span>
     </div>
 
-    <script src="game.js"></script>
+    <div class="level-tag">LAYER: <span id="lvl_num">1</span>/10</div>
+
+    <div id="screen-welcome" class="overlay">
+        <h1 style="font-size: 2.5rem; margin: 0;">VOID BOUNTY</h1>
+        <p>CRACK THE LAYERS. COLLECT ASSETS. DEFEAT THE VOID.</p>
+        <button onclick="startGame()">INITIALIZE HACK</button>
+    </div>
+
+    <div id="screen-gameover" class="overlay hidden">
+        <h1 style="color: #ff0033;">YOU SUCK LIKE GARY</h1>
+        <p id="death-msg">CONNECTION_TERMINATED</p>
+        <button onclick="startGame()">RE-LOGIN</button>
+    </div>
+
+    <div id="screen-win" class="overlay hidden">
+        <h1 id="win-title">LAYER_DECRYPTED</h1>
+        <p id="win-msg">DATA UPLOADED SUCCESSFULLY</p>
+        
+        <div id="dynamic-reward-container"></div>
+        
+        <button id="next-btn" onclick="nextLevel()">NEXT LAYER</button>
+    </div>
+
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+</div>
+
+<script src="game.js"></script>
 
 
   <p style="margin-top: 3rem;">

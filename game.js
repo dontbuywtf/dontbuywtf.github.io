@@ -17,11 +17,11 @@ let player, platforms, tokens, enemies, goal, worldWidth;
 
 // --- XRP LORE SNIPPETS ---
 const xrpLore = [
-    "GARY SUCKS", 
-    "XRP > BTC", 
     "AMM_ENABLED", 
+    "XRP > BTC", 
+    "GARY SUCKS",, 
     "RLUSD_STABLE", 
-    "XRPL_PROMPT", 
+    "FLIP_BTC", 
     "NO_ESCROW", 
     "THE_LEDGER", 
     "LIQUIDITY", 

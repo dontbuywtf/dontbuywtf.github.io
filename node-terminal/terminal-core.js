@@ -218,6 +218,7 @@ window.onload = () => {
     printLines([
         {text: "*** $DONTBUY NODE TERMINAL ***", cls: "success"},
         {text: "STATION ID: VOID_NODE_01"},
+        {text: "The Void is watching you, what does it say ?"},
         {text: "SYSTEM IS LOCKED. ENTER PASSWORD:"},
         {text: " "}
     ]);

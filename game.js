@@ -20,9 +20,9 @@ let player, platforms, tokens, enemies, goal, worldWidth;
 let uiAnims = []; 
 
 const xrpLore = [
-    "AMM_ENABLED", "XRP > BTC", "GARY SUCKS", "RLUSD_STABLE", 
-    "FLIP_BTC", "NO_ESCROW", "THE_LEDGER", "LIQUIDITY", 
-    "F_THE_SEC", "FLIP_BTC", "ISO_20022", "BRAD_G"
+    "AMM ENABLED", "XRP > BTC", "GARY SUCKS", "RLUSD IS STABLE", 
+    "FLIP BTC", "XLS-20", "XRPLedger", "LIQUIDITY", 
+    "F_THE_SEC", "FLIP BTC", "ISO 20022", "BRAD G", "BG123"
 ];
 
 function playMusic() {

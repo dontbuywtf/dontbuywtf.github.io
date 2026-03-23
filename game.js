@@ -5,11 +5,12 @@ const ctx = canvas.getContext('2d');
 let gameState = 'MENU';
 let currentLevel = 1;
 let lives = 3; 
-let score = { dontbuy: 0, xrp: 0, fuzzy: 0 };
+// Added 'puppet' to the score object
+let score = { dontbuy: 0, xrp: 0, fuzzy: 0, puppet: 0 }; 
 let cameraX = 0;
 let keys = {};
 let audioCtx = null;
-let isDying = false; // NEW: Prevents multiple life loss in one hit
+let isDying = false; 
 
 const GRAVITY = 0.45;
 const JUMP = -10;
@@ -18,14 +19,12 @@ const SPEED = 5;
 let player, platforms, tokens, enemies, goal, worldWidth;
 let uiAnims = []; 
 
-// --- XRP LORE SNIPPETS ---
 const xrpLore = [
     "AMM_ENABLED", "XRP > BTC", "GARY SUCKS", "RLUSD_STABLE", 
     "FLIP_BTC", "NO_ESCROW", "THE_LEDGER", "LIQUIDITY", 
     "F_THE_SEC", "FLIP_BTC", "ISO_20022", "BRAD_G"
 ];
 
-// --- 8-BIT MUSIC GENERATOR ---
 function playMusic() {
     if (audioCtx) return;
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -49,7 +48,7 @@ function playMusic() {
 
 // --- LEVEL GENERATOR ---
 function buildLevel(num) {
-    isDying = false; // Reset dying flag when level starts
+    isDying = false; 
     worldWidth = 3000 + (num * 1000);
     player = { x: 100, y: 100, w: 25, h: 35, vx: 0, vy: 0, grounded: false, jumpsLeft: 2 };
     platforms = []; tokens = []; enemies = []; uiAnims = []; 
@@ -61,7 +60,13 @@ function buildLevel(num) {
         platforms.push({ x: i, y: py, w: 160, h: 20 }); 
         
         let rand = Math.random();
-        let type = rand > 0.7 ? 'xrp' : (rand > 0.4 ? 'dontbuy' : 'fuzzy');
+        // Updated logic to include 'puppet' token type
+        let type;
+        if (rand > 0.75) type = 'xrp';
+        else if (rand > 0.50) type = 'dontbuy';
+        else if (rand > 0.25) type = 'fuzzy';
+        else type = 'puppet';
+
         tokens.push({ x: i + 50, y: py - 40, type: type, collected: false });
 
         if (Math.random() < 0.2 + (num * 0.08)) {
@@ -81,7 +86,6 @@ function buildLevel(num) {
     if (num >= 3 && num % 2 !== 0) {
         tokens.push({ x: worldWidth / 2, y: 120, type: '1up', collected: false });
     }
-
     goal = { x: worldWidth - 250, y: 150, w: 100, h: 210 };
 }
 
@@ -147,9 +151,11 @@ function drawToken(ctx, t) {
         ctx.fillText("⭐1UP", t.x, t.y + floatY);
     } else {
         ctx.font = "bold 19px 'Courier New'"; ctx.shadowBlur = 12;
-        if (t.type === 'dontbuy') { ctx.fillStyle = "#32e685"; ctx.shadowColor = "#32e685"; ctx.fillText("$dontbuy", t.x, t.y + floatY); }
+        if (t.type === 'dontbuy') { ctx.fillStyle = "#32e685"; ctx.shadowColor = "#32e685"; ctx.fillText("$DONTBUY", t.x, t.y + floatY); }
         else if (t.type === 'xrp') { ctx.fillStyle = "#19a3ff"; ctx.shadowColor = "#19a3ff"; ctx.fillText("$XRP", t.x, t.y + floatY); }
-        else { ctx.fillStyle = "#ff198b"; ctx.shadowColor = "#ff198b"; ctx.fillText("$FUZZY", t.x, t.y + floatY); }
+        else if (t.type === 'fuzzy') { ctx.fillStyle = "#ff198b"; ctx.shadowColor = "#ff198b"; ctx.fillText("$FUZZY", t.x, t.y + floatY); }
+        // Added drawing for $PUPPET (Vibrant Orange)
+        else if (t.type === 'puppet') { ctx.fillStyle = "#ff198b"; ctx.shadowColor = "#ff198b"; ctx.fillText("$PUPPET", t.x, t.y + floatY); }
     }
     ctx.restore();
 }
@@ -183,7 +189,7 @@ function drawMEVBot(ctx, en) {
 // --- CORE GAME LOOP ---
 function startGame() {
     playMusic();
-    if (gameState === 'GAMEOVER') { currentLevel = 1; lives = 3; score = { dontbuy: 0, xrp: 0, fuzzy: 0 }; }
+    if (gameState === 'GAMEOVER') { currentLevel = 1; lives = 3; score = { dontbuy: 0, xrp: 0, fuzzy: 0, puppet: 0 }; }
     document.querySelectorAll('.overlay').forEach(el => el.classList.add('hidden'));
     gameState = 'PLAYING';
     buildLevel(currentLevel);
@@ -194,22 +200,18 @@ function startGame() {
 function nextLevel() { currentLevel++; startGame(); }
 
 function die(msg) {
-    if (isDying) return; // Guard: only die once per hazard
+    if (isDying) return; 
     isDying = true;
-
     uiAnims.push({ x: player.x, y: player.y, text: "-1UP", life: 60, color: "#ff198b" });
     lives--; 
     updateUI();
-    
     if (lives <= 0) {
         gameState = 'GAMEOVER';
         document.getElementById('screen-gameover').classList.remove('hidden');
         document.getElementById('death-msg').innerText = "FATAL_ERROR: " + msg;
     } else {
         player.vx = 0; player.vy = 0;
-        setTimeout(() => { 
-            if(gameState === 'PLAYING') buildLevel(currentLevel); 
-        }, 800);
+        setTimeout(() => { if(gameState === 'PLAYING') buildLevel(currentLevel); }, 800);
     }
 }
 
@@ -241,6 +243,10 @@ function updateUI() {
     document.getElementById('db_score').innerText = score.dontbuy;
     document.getElementById('xrp_score').innerText = score.xrp;
     document.getElementById('fz_score').innerText = score.fuzzy;
+    // Update the Puppet score in the HTML
+    const ppDisplay = document.getElementById('pp_score');
+    if(ppDisplay) ppDisplay.innerText = score.puppet;
+
     document.getElementById('lvl_num').innerText = currentLevel;
     const livesDisplay = document.getElementById('lives_count');
     if(livesDisplay) livesDisplay.innerText = lives;
@@ -266,7 +272,6 @@ function update() {
         if (keys['ArrowRight']) player.vx = SPEED;
         else if (keys['ArrowLeft']) player.vx = -SPEED;
         else player.vx = 0;
-        
         player.vy += GRAVITY; player.x += player.vx; player.y += player.vy;
     }
     
